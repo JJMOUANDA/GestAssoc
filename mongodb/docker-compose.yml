@@ -9,4 +9,5 @@ services:
         - "27017:27017"
       volumes:
         - ./data:/data/db
+        - ./init.json:/init.json
       restart: always
