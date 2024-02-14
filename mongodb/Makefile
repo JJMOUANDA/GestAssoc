@@ -1,5 +1,8 @@
 create:
 	@docker compose up -d --build
+	@make import
+
+import:
 	@docker exec mongodb mongoimport --host mongodb --db gestassoc --collection commentaires --type json --file /init.json --jsonArray
 
 start:
