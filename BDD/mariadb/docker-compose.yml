@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mariadb:
-    container_name: mariadb
+    container_name: mariadb-gestassoc
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,7 +12,7 @@ services:
       - .env.test
 
   phpmyadmin:
-    container_name: phpmyadmin
+    container_name: phpmyadmin-gestassoc
     image: phpmyadmin:5.2.1-apache
     ports:
       - "8080:80"
