@@ -4,7 +4,7 @@ services:
       build:
         context: .
         dockerfile: Dockerfile
-      container_name: mongodb
+      container_name: mongodb-gestassoc
       ports:
         - "27017:27017"
       volumes:
