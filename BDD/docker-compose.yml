@@ -11,11 +11,22 @@ services:
     environment:
       TZ: Europe/Paris
     volumes:
-      - ./backup:/backup
+      - ./mariadb/backup:/backup
+
+  mongodb:
+      build:
+        context: mongodb
+        dockerfile: Dockerfile
+      container_name: mongodb_gestassoc
+      ports:
+        - "27017:27017"
+      volumes:
+        - ./mongodb/backup:/backup
+      restart: always
 
   phpmyadmin:
-    container_name: phpmyadmin_gestassoc
     image: phpmyadmin:5.2.1-apache
+    container_name: phpmyadmin_gestassoc
     ports:
       - "8080:80"
     environment:
