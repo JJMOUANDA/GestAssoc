@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: Membre API
+  version: 1.0.0
+paths:
+
+  /membres:
+    get:
+      summary: Liste tous les membres
+      responses:
+        '200':
+          description: Une liste des membres
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberList'
+    post:
+      summary: Crée un nouveau membre
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+      responses:
+        '201':
+          description: Nouveau membre créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+
+  /membres/{membreId}:
+    get:
+      summary: Récupère un membre par son ID
+      parameters:
+        - name: membreId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Un membre détaillé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+    put:
+      summary: Met à jour un membre
+      parameters:
+        - name: membreId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+      responses:
+        '200':
+          description: Membre mis à jour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+    delete:
+      summary: Supprime un membre
+      parameters:
+        - name: membreId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Membre supprimé
+components:
+  schemas:
+    # Schéma pour un membre
+    Member:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        profilePictureUrl:
+          type: string
+          format: uri
+
+    # Schéma pour une liste de membres
+    MemberList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Member'

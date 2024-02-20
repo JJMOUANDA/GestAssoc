@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: Lieu API
+  version: 1.0.0
+paths:
+
+  /lieux:
+    get:
+      summary: Liste tous les lieux
+      responses:
+        '200':
+          description: Une liste des lieux
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationList'
+    post:
+      summary: Crée un nouveau lieu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '201':
+          description: Nouveau lieu créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+
+  /lieux/{lieuId}:
+    get:
+      summary: Récupère un lieu par son ID
+      parameters:
+        - name: lieuId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Un lieu détaillé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+    put:
+      summary: Met à jour un lieu
+      parameters:
+        - name: lieuId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: Lieu mis à jour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+    delete:
+      summary: Supprime un lieu
+      parameters:
+        - name: lieuId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Lieu supprimé
+components:
+  schemas:
+    # Schéma pour un lieu
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
+
+    # Schéma pour une liste de lieux
+    LocationList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Location'
