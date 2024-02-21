@@ -11,17 +11,18 @@ services:
     environment:
       TZ: Europe/Paris
     volumes:
-      - ./mariadb/backup:/backup
+      - ./mariadb/backup:/mariadb/backup
 
   mongodb:
-      build:
-        context: mongodb
-        dockerfile: Dockerfile
+      image: mongo:7.0.5
       container_name: mongodb_gestassoc
       ports:
         - "27017:27017"
+      environment:
+        TZ: Europe/Paris
       volumes:
-        - ./mongodb/backup:/backup
+        - ./mongodb/backup:/mongodb/backup
+        - ./mongodb/data:/data/db
       restart: always
 
   phpmyadmin:
@@ -37,4 +38,8 @@ services:
 
 volumes:
   mariadb_data:
+    driver: local
+  mongodb-data:
+    driver: local
+  mongodb-log:
     driver: local
