@@ -15,7 +15,7 @@ public class Inscription {
     private Evenement evenement;
 
     @ManyToOne
-    @JoinColumn(name = "MemberId")
+    @JoinColumn(name = "MembreId")
     private Membre membre;
 
     public Inscription() {
