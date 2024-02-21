@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mariadb:
+    container_name: mariadb_gestassoc
+    image: mariadb:10.5.23-focal
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env.test
+    environment:
+      TZ: Europe/Paris
+    volumes:
+      - ./mariadb/backup:/backup
+
+  mongodb:
+      build:
+        context: mongodb
+        dockerfile: Dockerfile
+      container_name: mongodb_gestassoc
+      ports:
+        - "27017:27017"
+      volumes:
+        - ./mongodb/backup:/backup
+      restart: always
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1-apache
+    container_name: phpmyadmin_gestassoc
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+    env_file:
+      - .env.test
+
+volumes:
+  mariadb_data:
+    driver: local
