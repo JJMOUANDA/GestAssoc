@@ -2,11 +2,13 @@
   {
     "textCommentaire": "Premier commentaire",
     "date": "2024-02-14T00:00:00Z",
-    "membreId": 1
+    "membreId": 1,
+    "evenementId": 1
   },
   {
     "textCommentaire": "Deuxième commentaire",
     "date": "2024-02-14T00:00:00Z",
-    "membreId": 2
+    "membreId": 2,
+    "evenementId": 1
   }
 ]
