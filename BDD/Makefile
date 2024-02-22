@@ -36,18 +36,18 @@ create_mariadb:
 
 # Démarrer le service mariadb
 start_mariadb:
-	docker compose start mariadb
+	docker compose -p gestion_association start mariadb
 
 # Arrêter le service mariadb
 stop_mariadb:
-	docker compose stop mariadb
+	docker compose -p gestion_association stop mariadb
 
 # Redémarrer le service mariadb
 restart_mariadb: stop_mariadb start_mariadb
 
 # Supprimer le service mariadb
 remove_mariadb:
-	@docker compose down mariadb --volumes --remove-orphans
+	@docker compose -p gestion_association down mariadb --volumes --remove-orphans
 
 # Se connecter au shell du service mariadb
 shell_mariadb:
@@ -75,18 +75,18 @@ create_mongodb:
 
 # Démarrer le service mongodb
 start_mongodb:
-	@docker compose start mongodb
+	@docker compose -p gestion_association start mongodb
 
 # Arrêter le service mongodb
 stop_mongodb:
-	@docker compose stop mongodb
+	@docker compose -p gestion_association stop mongodb
 
 # Redémarrer le service mongodb
 restart_mongodb: stop_mongodb start_mongodb
 
 # Supprimer le service mongodb
 remove_mongodb:
-	@docker compose down mongodb --volumes --remove-orphans
+	@docker compose -p gestion_association down mongodb --volumes --remove-orphans
 
 # Se connecter au shell du service mongodb
 shell_mongodb:
@@ -115,15 +115,15 @@ create_phpmyadmin:
 
 # Démarrer le service phpmyadmin
 start_phpmyadmin:
-	@docker compose start phpmyadmin
+	@docker compose -p gestion_association start phpmyadmin
 
 # Arrêter le service phpmyadmin
 stop_phpmyadmin:
-	@docker compose stop phpmyadmin
+	@docker compose -p gestion_association stop phpmyadmin
 
 # Redémarrer le service phpmyadmin
 restart_phpmyadmin: stop_phpmyadmin start_phpmyadmin
 
 # Supprimer le service phpmyadmin
 remove_phpmyadmin:
-	@docker compose down phpmyadmin --volumes --remove-orphans
+	@docker compose -p gestion_association down phpmyadmin --volumes --remove-orphans
