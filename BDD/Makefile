@@ -105,7 +105,7 @@ restore_mongodb:
 # Restaurer la dernière backup de la collection mongodb
 restore_latest_mongodb:
 	@echo "Restoring from backup $(LATEST_BACKUP_MONGODB)"; \
-	@make restore_mongodb f=$(LATEST_BACKUP_MONGODB)
+	make restore_mongodb f=$(LATEST_BACKUP_MONGODB)
 
 ################# PHPMYADMIN #################
 
