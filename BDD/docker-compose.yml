@@ -11,7 +11,7 @@ services:
     environment:
       TZ: Europe/Paris
     volumes:
-      - ./mariadb/backup:/mariadb/backup
+      - ./mariadb/backup:/backup
 
   mongodb:
       image: mongo:7.0.5
@@ -21,7 +21,7 @@ services:
       environment:
         TZ: Europe/Paris
       volumes:
-        - ./mongodb/backup:/mongodb/backup
+        - ./mongodb/backup:/backup
         - ./mongodb/data:/data/db
       restart: always
 

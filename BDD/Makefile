@@ -3,6 +3,16 @@
 
 include .env.test
 
+GIT_USER_NAME := $(shell git config user.name)
+LATEST_BACKUP_MONGODB := $(shell ls -t mongodb/backup/*.json 2>/dev/null | head -n1)
+LATEST_BACKUP_MARIADB := $(shell ls -t mariadb/backup/*.sql 2>/dev/null | head -n1)
+
+ifeq ($(LATEST_BACKUP_MONGODB),)
+    LATEST_BACKUP_MONGODB :=
+else
+    LATEST_BACKUP_MONGODB := backup/$(shell basename $(LATEST_BACKUP_MONGODB))
+endif
+
 # Créer les services mariadb, mongodb et phpmyadmin
 create_all: create_mariadb create_mongodb create_phpmyadmin
 
@@ -37,16 +47,15 @@ restart_mariadb: stop_mariadb start_mariadb
 
 # Supprimer le service mariadb
 remove_mariadb:
-	docker compose down mariadb --volumes --remove-orphans
+	@docker compose down mariadb --volumes --remove-orphans
 
 # Se connecter au shell du service mariadb
 shell_mariadb:
-	docker exec -it mariadb_gestassoc /bin/bash
+	@docker exec -it mariadb_gestassoc /bin/bash
 
 # Créer une backup de la base de données mariadb
 backup_mariadb:
-	@current_user=$$(git config user.name); \
-	docker exec -it mariadb_gestassoc /bin/bash -c "mysqldump -u root -p$(MYSQL_ROOT_PASSWORD) $(MYSQL_DATABASE) > /mariadb/backup/backup_$${current_user}_$$(date +'%Y-%m-%d_%H-%M-%S').sql"
+	@docker exec -it mariadb_gestassoc /bin/bash -c "mysqldump -u root -p$(MYSQL_ROOT_PASSWORD) $(MYSQL_DATABASE) > /backup/backup_$(GIT_USER_NAME)_$$(date +'%Y-%m-%d_%H-%M-%S').sql"
 
 # Restaurer une backup de la base de données mariadb (fournir le chemin du fichier)
 # exemple : make restore_mariadb f=mariadb/backup/backup_user_2021-08-25_15-00-00.sql
@@ -55,39 +64,37 @@ restore_mariadb:
 
 # Restaurer la dernière backup de la base de données mariadb
 restore_latest_mariadb:
-	@latest_backup=$$(ls -t mariadb/backup/*.sql | head -n1); \
-	echo "Restoring from backup $${latest_backup}"; \
-	make restore_mariadb f=$${latest_backup}
+	@echo "Restoring from backup $(LATEST_BACKUP_MARIADB)"; \
+	make restore_mariadb f=$(LATEST_BACKUP_MARIADB)
 
 ################# MONGODB #################
 
 # Créer le service mongodb
 create_mongodb:
-	docker compose -p gestion_association up -d mongodb
+	@docker compose -p gestion_association up -d mongodb
 
 # Démarrer le service mongodb
 start_mongodb:
-	docker compose start mongodb
+	@docker compose start mongodb
 
 # Arrêter le service mongodb
 stop_mongodb:
-	docker compose stop mongodb
+	@docker compose stop mongodb
 
 # Redémarrer le service mongodb
 restart_mongodb: stop_mongodb start_mongodb
 
 # Supprimer le service mongodb
 remove_mongodb:
-	docker compose down mongodb --volumes --remove-orphans
+	@docker compose down mongodb --volumes --remove-orphans
 
 # Se connecter au shell du service mongodb
 shell_mongodb:
-	docker exec -it mongodb_gestassoc /bin/bash
+	@docker exec -it mongodb_gestassoc /bin/bash
 
 # Créer une backup de la collection mongodb
 backup_mongodb:
-	@current_user=$$(git config user.name); \
-	docker exec mongodb_gestassoc mongoexport --host localhost --port 27017 --db $(MONGO_DATABASE) --collection $(MONGO_COLLECTION) --out /mongodb/backup/backup_$${current_user}_$$(date +'%Y-%m-%d_%H-%M-%S').json --jsonArray
+	@docker exec mongodb_gestassoc mongoexport --host localhost --port 27017 --db $(MONGO_DATABASE) --collection $(MONGO_COLLECTION) --out /backup/backup_$(GIT_USER_NAME)_$$(date +'%Y-%m-%d_%H-%M-%S').json --jsonArray
 
 # Restaurer une backup de la collection mongodb (fournir le chemin du fichier)
 # exemple : make restore_mongodb f=mongodb/backup/backup_user_2021-08-25_15-00-00.json
@@ -97,27 +104,26 @@ restore_mongodb:
 
 # Restaurer la dernière backup de la collection mongodb
 restore_latest_mongodb:
-	@latest_backup=$$(ls -t mongodb/backup/*.json | head -n1); \
-	echo "Restoring from backup $${latest_backup}"; \
-	make restore_mongodb f=$${latest_backup}
+	@echo "Restoring from backup $(LATEST_BACKUP_MONGODB)"; \
+	@make restore_mongodb f=$(LATEST_BACKUP_MONGODB)
 
 ################# PHPMYADMIN #################
 
 # Créer le service phpmyadmin
 create_phpmyadmin:
-	docker compose -p gestion_association up -d phpmyadmin
+	@docker compose -p gestion_association up -d phpmyadmin
 
 # Démarrer le service phpmyadmin
 start_phpmyadmin:
-	docker compose start phpmyadmin
+	@docker compose start phpmyadmin
 
 # Arrêter le service phpmyadmin
 stop_phpmyadmin:
-	docker compose stop phpmyadmin
+	@docker compose stop phpmyadmin
 
 # Redémarrer le service phpmyadmin
 restart_phpmyadmin: stop_phpmyadmin start_phpmyadmin
 
 # Supprimer le service phpmyadmin
 remove_phpmyadmin:
-	docker compose down phpmyadmin --volumes --remove-orphans
+	@docker compose down phpmyadmin --volumes --remove-orphans
