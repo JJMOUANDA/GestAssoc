@@ -1,4 +1,4 @@
-package org.example.messageapi;
+package org.example.pojo;
 
 import jakarta.persistence.*;
 
