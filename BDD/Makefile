@@ -3,6 +3,16 @@
 
 include .env.test
 
+GIT_USER_NAME := $(shell git config user.name)
+LATEST_BACKUP_MONGODB := $(shell ls -t mongodb/backup/*.json 2>/dev/null | head -n1)
+LATEST_BACKUP_MARIADB := $(shell ls -t mariadb/backup/*.sql 2>/dev/null | head -n1)
+
+ifeq ($(LATEST_BACKUP_MONGODB),)
+    LATEST_BACKUP_MONGODB :=
+else
+    LATEST_BACKUP_MONGODB := backup/$(shell basename $(LATEST_BACKUP_MONGODB))
+endif
+
 # Créer les services mariadb, mongodb et phpmyadmin
 create_all: create_mariadb create_mongodb create_phpmyadmin
 
@@ -45,8 +55,7 @@ shell_mariadb:
 
 # Créer une backup de la base de données mariadb
 backup_mariadb:
-	@current_user=$$(git config user.name); \
-	docker exec -it mariadb_gestassoc /bin/bash -c "mysqldump -u root -p$(MYSQL_ROOT_PASSWORD) $(MYSQL_DATABASE) > /backup/backup_$${current_user}_$$(date +'%Y-%m-%d_%H-%M-%S').sql"
+	docker exec -it mariadb_gestassoc /bin/bash -c "mysqldump -u root -p$(MYSQL_ROOT_PASSWORD) $(MYSQL_DATABASE) > /backup/backup_$(GIT_USER_NAME)_$$(date +'%Y-%m-%d_%H-%M-%S').sql"
 
 # Restaurer une backup de la base de données mariadb (fournir le chemin du fichier)
 # exemple : make restore_mariadb f=mariadb/backup/backup_user_2021-08-25_15-00-00.sql
@@ -55,9 +64,8 @@ restore_mariadb:
 
 # Restaurer la dernière backup de la base de données mariadb
 restore_latest_mariadb:
-	@latest_backup=$$(ls -t mariadb/backup/*.sql | head -n1); \
-	echo "Restoring from backup $${latest_backup}"; \
-	make restore_mariadb f=$${latest_backup}
+	echo "Restoring from backup $(LATEST_BACKUP_MARIADB)"; \
+	make restore_mariadb f=$(LATEST_BACKUP_MARIADB)
 
 ################# MONGODB #################
 
@@ -86,21 +94,18 @@ shell_mongodb:
 
 # Créer une backup de la collection mongodb
 backup_mongodb:
-	@current_user=$$(git config user.name); \
-	docker exec mongodb_gestassoc mongoexport --host localhost --port 27017 --db $(MONGO_DATABASE) --collection $(MONGO_COLLECTION) --out /backup/backup_$${current_user}_$$(date +'%Y-%m-%d_%H-%M-%S').json --jsonArray
+	docker exec mongodb_gestassoc mongoexport --host localhost --port 27017 --db $(MONGO_DATABASE) --collection $(MONGO_COLLECTION) --out /backup/backup_$(GIT_USER_NAME)_$$(date +'%Y-%m-%d_%H-%M-%S').json --jsonArray
 
 # Restaurer une backup de la collection mongodb (fournir le chemin du fichier)
 # exemple : make restore_mongodb f=mongodb/backup/backup_user_2021-08-25_15-00-00.json
 restore_mongodb:
-	@docker exec mongodb_gestassoc mongosh --quiet --host localhost --port 27017 --eval "db.getSiblingDB('$(MONGO_DATABASE)').dropDatabase()"
-	@docker exec mongodb_gestassoc mongoimport --host localhost --port 27017 --db $(MONGO_DATABASE) --collection $(MONGO_COLLECTION) --type json --file $(f) --jsonArray
+	docker exec mongodb_gestassoc mongosh --quiet --host localhost --port 27017 --eval "db.getSiblingDB('$(MONGO_DATABASE)').dropDatabase()"
+	docker exec mongodb_gestassoc mongoimport --host localhost --port 27017 --db $(MONGO_DATABASE) --collection $(MONGO_COLLECTION) --type json --file $(f) --jsonArray
 
 # Restaurer la dernière backup de la collection mongodb
 restore_latest_mongodb:
-	@latest_backup=$$(ls -t mongodb/backup/*.json | head -n1); \
-	latest_backup="backup/$$(basename $$latest_backup)"; \
-	echo "Restoring from backup $${latest_backup}"; \
-	make restore_mongodb f=$${latest_backup}
+	echo "Restoring from backup $(LATEST_BACKUP_MONGODB)"; \
+	make restore_mongodb f=$(LATEST_BACKUP_MONGODB)
 
 ################# PHPMYADMIN #################
 
