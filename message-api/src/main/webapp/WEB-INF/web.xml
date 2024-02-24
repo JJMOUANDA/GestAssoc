@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>Commentaire</servlet-name>
-        <servlet-class>services.CommentaireServlet</servlet-class>
+        <servlet-class>com.gestionassociation.commentaire.CommentaireServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Commentaire</servlet-name>
