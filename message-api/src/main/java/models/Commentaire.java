@@ -2,6 +2,7 @@ package models;
 
 import org.bson.types.ObjectId;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Commentaire {
@@ -9,13 +10,20 @@ public class Commentaire {
     private ObjectId id;
     private int evenementId;
 
-    private int membresId;
+    private int auteurId;
 
-    private String textCommentaire;
+    private String texte;
 
-    private String date;
+    private Date date;
 
     public Commentaire() {
+    }
+
+    public Commentaire(int evenementId, int auteurId, String texte) {
+        this.evenementId = evenementId;
+        this.auteurId = auteurId;
+        this.texte = texte;
+        this.date = new Date();
     }
 
     public ObjectId getId() {
@@ -34,27 +42,27 @@ public class Commentaire {
         this.evenementId = evenementId;
     }
 
-    public int getMembresId() {
-        return membresId;
+    public int getAuteurId() {
+        return auteurId;
     }
 
-    public void setMembresId(int membresId) {
-        this.membresId = membresId;
+    public void setAuteurId(int auteurId) {
+        this.auteurId = auteurId;
     }
 
-    public String getTextCommentaire() {
-        return textCommentaire;
+    public String getTexte() {
+        return texte;
     }
 
-    public void setTextCommentaire(String textCommentaire) {
-        this.textCommentaire = textCommentaire;
+    public void setTexte(String texte) {
+        this.texte = texte;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -63,11 +71,11 @@ public class Commentaire {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Commentaire that = (Commentaire) o;
-        return evenementId == that.evenementId && membresId == that.membresId && Objects.equals(id, that.id) && Objects.equals(textCommentaire, that.textCommentaire) && Objects.equals(date, that.date);
+        return evenementId == that.evenementId && auteurId == that.auteurId && Objects.equals(id, that.id) && Objects.equals(texte, that.texte) && Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, evenementId, membresId, textCommentaire, date);
+        return Objects.hash(id, evenementId, auteurId, texte, date);
     }
 }

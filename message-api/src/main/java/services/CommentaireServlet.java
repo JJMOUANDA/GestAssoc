@@ -79,6 +79,23 @@ public class CommentaireServlet extends HttpServlet {
         }
     }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int evenementId = Integer.parseInt(request.getParameter("evenementId"));
+        int auteurId = Integer.parseInt(request.getParameter("auteurId"));
+        String texte = request.getParameter("texte");
+
+        Commentaire nouveauCommentaire = new Commentaire(evenementId, auteurId, texte);
+
+        MongoCollection<Commentaire> commentairesCollection = database.getCollection("commentaires", Commentaire.class);
+        commentairesCollection.insertOne(nouveauCommentaire);
+
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("Commentaire créé avec succès !");
+    }
+
     private String convertToJson(Object object) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(object);
