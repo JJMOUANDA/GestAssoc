@@ -85,6 +85,14 @@ public class CommentaireServlet extends HttpServlet {
         int auteurId = Integer.parseInt(request.getParameter("auteurId"));
         String texte = request.getParameter("texte");
 
+        if (evenementId == 0 || auteurId == 0 || texte == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("Paramètres invalides !");
+            return;
+        }
+
         Commentaire nouveauCommentaire = new Commentaire(evenementId, auteurId, texte);
 
         MongoCollection<Commentaire> commentairesCollection = database.getCollection("commentaires", Commentaire.class);
