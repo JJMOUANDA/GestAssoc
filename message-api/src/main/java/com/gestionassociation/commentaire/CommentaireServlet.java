@@ -1,26 +1,19 @@
-package services;
+package com.gestionassociation.commentaire;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import com.gestionassociation.commentaire.pojo.Commentaire;
+import com.gestionassociation.commentaire.util.CommentaireDAO;
+import com.gestionassociation.commentaire.util.Connection;
+import com.gestionassociation.commentaire.util.JsonUtil;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import jakarta.servlet.ServletException;
-import models.Commentaire;
-import connection.Connection;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
-
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -28,29 +21,10 @@ import static com.mongodb.client.model.Filters.eq;
 public class CommentaireServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
     private final MongoDatabase database = Connection.getInstance().getDatabase();
 
-    public List<Commentaire> getListCommentaire() {
-        MongoCollection<Commentaire> commentaires = database.getCollection("commentaires", Commentaire.class);
-        List<Commentaire> commentairesList = new ArrayList<>();
-
-        commentaires.find().into(commentairesList);
-        return commentairesList;
-    }
-
-    public Commentaire getCommentaireById(ObjectId id) {
-        MongoCollection<Commentaire> commentaires = database.getCollection("commentaires", Commentaire.class);
-        return commentaires.find(eq("_id", id)).first();
-    }
-
-    public List<Commentaire> getCommentaireByEvenementId(int id) {
-        MongoCollection<Commentaire> commentaires = database.getCollection("commentaires", Commentaire.class);
-        List<Commentaire> commentairesList = new ArrayList<>();
-
-        commentaires.find(eq("evenementId", id)).into(commentairesList);
-        return commentairesList;
-    }
+    private final CommentaireDAO commentaireDAO = new CommentaireDAO();
+    private final JsonUtil jsonUtil = new JsonUtil();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -59,7 +33,7 @@ public class CommentaireServlet extends HttpServlet {
         if (Pattern.compile("/message-api/commentaire").matcher(uri).matches()) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(convertToJson(getListCommentaire()));
+            response.getWriter().write(jsonUtil.convertToJson(commentaireDAO.getListCommentaire()));
             response.setStatus(HttpServletResponse.SC_OK);
 
         } else if (Pattern.compile("/message-api/commentaire/(\\w+)").matcher(uri).matches()) {
@@ -67,8 +41,8 @@ public class CommentaireServlet extends HttpServlet {
             String id = uri.substring(uri.lastIndexOf('/') + 1);
             ObjectId objectId = new ObjectId(id);
 
-            Commentaire commentaire = getCommentaireById(objectId);
-            String jsonCommentaire = convertToJson(commentaire);
+            Commentaire commentaire = commentaireDAO.getCommentaireById(objectId);
+            String jsonCommentaire = jsonUtil.convertToJson(commentaire);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(jsonCommentaire);
@@ -81,7 +55,7 @@ public class CommentaireServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(convertToJson(getCommentaireByEvenementId(evenementId)));
+            response.getWriter().write(jsonUtil.convertToJson(commentaireDAO.getCommentaireByEvenementId(evenementId)));
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -90,7 +64,6 @@ public class CommentaireServlet extends HttpServlet {
             response.getWriter().write("Requête invalide");
         }
     }
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -125,7 +98,7 @@ public class CommentaireServlet extends HttpServlet {
             ObjectId objectId = new ObjectId(id);
             String texte = request.getParameter("texte");
 
-            Commentaire commentaire = getCommentaireById(objectId);
+            Commentaire commentaire = commentaireDAO.getCommentaireById(objectId);
             if (commentaire != null) {
                 commentaire.setTexte(texte);
                 commentaire.setDate(new Date());
@@ -158,7 +131,7 @@ public class CommentaireServlet extends HttpServlet {
             String id = uri.substring(uri.lastIndexOf('/') + 1);
             ObjectId objectId = new ObjectId(id);
 
-            Commentaire commentaire = getCommentaireById(objectId);
+            Commentaire commentaire = commentaireDAO.getCommentaireById(objectId);
             if (commentaire != null) {
                 MongoCollection<Commentaire> commentairesCollection = database.getCollection("commentaires", Commentaire.class);
                 commentairesCollection.deleteOne(eq("_id", objectId));
@@ -180,10 +153,4 @@ public class CommentaireServlet extends HttpServlet {
             response.getWriter().write("Requête invalide");
         }
     }
-
-    private String convertToJson(Object object) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(object);
-    }
-
 }

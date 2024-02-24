@@ -1,4 +1,4 @@
-package models;
+package com.gestionassociation.commentaire.pojo;
 
 import org.bson.types.ObjectId;
 

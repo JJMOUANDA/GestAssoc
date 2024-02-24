@@ -1,4 +1,4 @@
-package connection;
+package com.gestionassociation.commentaire.util;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
