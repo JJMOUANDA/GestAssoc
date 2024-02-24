@@ -2,6 +2,7 @@ package models;
 
 import org.bson.types.ObjectId;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class Commentaire {
 
     private String texte;
 
-    private Date date;
+    private LocalDateTime date;
 
     public Commentaire() {
     }
@@ -23,7 +24,7 @@ public class Commentaire {
         this.evenementId = evenementId;
         this.auteurId = auteurId;
         this.texte = texte;
-        this.date = new Date();
+        this.date = LocalDateTime.now();
     }
 
     public ObjectId getId() {
@@ -58,11 +59,11 @@ public class Commentaire {
         this.texte = texte;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
