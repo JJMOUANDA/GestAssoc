@@ -15,7 +15,7 @@ public class Commentaire {
 
     private String texte;
 
-    private LocalDateTime date;
+    private Date date;
 
     public Commentaire() {
     }
@@ -24,7 +24,7 @@ public class Commentaire {
         this.evenementId = evenementId;
         this.auteurId = auteurId;
         this.texte = texte;
-        this.date = LocalDateTime.now();
+        this.date = new Date();
     }
 
     public ObjectId getId() {
@@ -59,11 +59,11 @@ public class Commentaire {
         this.texte = texte;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
