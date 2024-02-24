@@ -12,6 +12,7 @@ import connection.Connection;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -127,7 +128,7 @@ public class CommentaireServlet extends HttpServlet {
             Commentaire commentaire = getCommentaireById(objectId);
             if (commentaire != null) {
                 commentaire.setTexte(texte);
-                commentaire.setDate(LocalDateTime.now());
+                commentaire.setDate(new Date());
 
                 MongoCollection<Commentaire> commentairesCollection = database.getCollection("commentaires", Commentaire.class);
                 commentairesCollection.replaceOne(eq("_id", objectId), commentaire);
