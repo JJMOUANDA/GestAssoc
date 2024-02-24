@@ -13,9 +13,6 @@ else
     LATEST_BACKUP_MONGODB := backup/$(shell basename $(LATEST_BACKUP_MONGODB))
 endif
 
-test:
-	@echo "Linux"
-
 # Créer les services mariadb, mongodb et phpmyadmin
 create_all: create_mariadb create_mongodb create_phpmyadmin
 
