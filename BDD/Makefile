@@ -3,7 +3,7 @@
 
 include .env.test
 
-GIT_USER_NAME := $(shell git config user.name)
+GIT_USER_NAME := $(shell git config user.name 2>/dev/null || echo "?")
 LATEST_BACKUP_MONGODB := $(shell ls -t mongodb/backup/*.json 2>/dev/null | head -n1)
 LATEST_BACKUP_MARIADB := $(shell ls -t mariadb/backup/*.sql 2>/dev/null | head -n1)
 
@@ -32,15 +32,15 @@ remove_all: remove_mariadb remove_mongodb remove_phpmyadmin
 
 # Créer le service mariadb
 create_mariadb:
-	docker compose -p gestion_association up -d mariadb
+	@docker compose -p gestion_association up -d mariadb
 
 # Démarrer le service mariadb
 start_mariadb:
-	docker compose -p gestion_association start mariadb
+	@docker compose -p gestion_association start mariadb
 
 # Arrêter le service mariadb
 stop_mariadb:
-	docker compose -p gestion_association stop mariadb
+	@docker compose -p gestion_association stop mariadb
 
 # Redémarrer le service mariadb
 restart_mariadb: stop_mariadb start_mariadb
