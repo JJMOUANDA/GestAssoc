@@ -4,7 +4,7 @@
     <deployment>
       <artifact name="message-api:war">
         <settings>
-          <option name="CONTEXT_PATH" value="message-api" />
+          <option name="CONTEXT_PATH" value="/message-api" />
         </settings>
       </artifact>
     </deployment>
