@@ -1,4 +1,4 @@
-package connection;
+package com.gestionassociation.commentaire.util;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
@@ -25,7 +25,6 @@ public class Connection {
         MongoClient mongoClient = MongoClients.create(connectionString);
         this.database = mongoClient.getDatabase("gestion_association").withCodecRegistry(pojoCodecRegistry);
     }
-
     public static Connection getInstance() {
         return instance == null ? new Connection() : instance;
     }
