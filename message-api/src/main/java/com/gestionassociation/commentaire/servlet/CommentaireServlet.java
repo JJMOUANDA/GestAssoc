@@ -1,4 +1,4 @@
-package com.gestionassociation.commentaire;
+package com.gestionassociation.commentaire.servlet;
 
 import com.gestionassociation.commentaire.pojo.Commentaire;
 import com.gestionassociation.commentaire.util.CommentaireDAO;
@@ -48,15 +48,6 @@ public class CommentaireServlet extends HttpServlet {
             response.getWriter().write(jsonCommentaire);
             response.setStatus(HttpServletResponse.SC_OK);
 
-        } else if (Pattern.compile("/message-api/commentaire/evenement/(\\w+)").matcher(uri).matches()) {
-
-            String id = uri.substring(uri.lastIndexOf('/') + 1);
-            int evenementId = Integer.parseInt(id);
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jsonUtil.convertToJson(commentaireDAO.getCommentaireByEvenementId(evenementId)));
-            response.setStatus(HttpServletResponse.SC_OK);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.setContentType("text/plain");
