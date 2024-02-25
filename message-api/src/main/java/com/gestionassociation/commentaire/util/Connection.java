@@ -25,7 +25,6 @@ public class Connection {
         MongoClient mongoClient = MongoClients.create(connectionString);
         this.database = mongoClient.getDatabase("gestion_association").withCodecRegistry(pojoCodecRegistry);
     }
-
     public static Connection getInstance() {
         return instance == null ? new Connection() : instance;
     }
