@@ -36,9 +36,4 @@ public class CommentaireDAO {
         commentaires.find(eq("evenementId", id)).into(commentairesList);
         return commentairesList;
     }
-
-    private String convertToJson(Object object) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(object);
-    }
 }
