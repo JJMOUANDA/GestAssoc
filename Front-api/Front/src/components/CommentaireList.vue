@@ -20,7 +20,9 @@ onMounted(async () => {
   <div>
     <h2>Liste des Commentaires</h2>
     <ul>
-      {{ commentaires }}
+      <li v-for="commentaire in commentaires" :key="commentaire.id">
+        {{ commentaire.texte }}
+      </li>
     </ul>
   </div>
 
