@@ -15,6 +15,7 @@
             <h3>Commentaires</h3>
             <li v-for="commentaire in commentaires[evenement.id].data" :key="commentaire.id">
               {{ commentaire.texte }} - {{ formatDate(commentaire.date) }}
+              <button @click="CommentaireService.deleteCommentaire(commentaire.id)">Supprimer</button>
             </li>
           </template>
         </ul>
