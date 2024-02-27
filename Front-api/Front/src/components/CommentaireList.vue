@@ -2,6 +2,7 @@
 
 import { ref, onMounted } from 'vue';
 import CommentaireService from '../CommentaireService';
+import {formatDate} from "@/dateUtil.js";
 
 const commentaires = ref([]);
 
@@ -21,7 +22,7 @@ onMounted(async () => {
     <h2>Liste des Commentaires</h2>
     <ul>
       <li v-for="commentaire in commentaires" :key="commentaire.id">
-        {{ commentaire.texte }}
+        {{ commentaire.texte }} - {{ formatDate(commentaire.date) }}
       </li>
     </ul>
   </div>
