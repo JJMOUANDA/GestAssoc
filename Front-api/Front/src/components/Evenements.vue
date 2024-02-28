@@ -26,8 +26,8 @@
 
 <script setup>
 import {onMounted, ref} from 'vue'
-import {formatDate} from "@/dateUtil.js";
-import CommentaireService from "@/CommentaireService.js";
+import {formatDate} from "@/util/dateUtil.js";
+import CommentaireService from "@/services/CommentaireService.js";
 
 let commentaires = ref([]);
 let evenements = ref([]);
@@ -72,24 +72,3 @@ onMounted(async () => {
 });
 
 </script>
-
-<style>
-
-/* Styles pour EvenementsList ici */
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 20px;
-}
-
-h3 {
-  margin: 0 0 10px 0;
-}
-
-p {
-  margin: 0;
-}
-</style>

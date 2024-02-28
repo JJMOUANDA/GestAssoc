@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import LieuService from '../LieuService';
+import LieuService from '../services/LieuService.js';
 
 const lieux = ref([]);
 

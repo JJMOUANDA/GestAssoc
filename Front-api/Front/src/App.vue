@@ -1,25 +1,24 @@
-<template>
-  <Header />
-  <div class = "container">
-    <Evenements />
-    <LieuList />
-    <CommentaireList />
-  </div>
-</template>
-
 <script setup>
-
-import Header from '@/components/Header.vue';
-import Evenements  from "@/components/Evenements.vue";
-
-import {computed, ref, onMounted} from "vue";
-import LieuList from "@/components/LieuList.vue";
-import CommentaireList from "@/components/CommentaireList.vue";
-
 </script>
 
+<template>
+  <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
 
-
-<style scoped>
-
-</style>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/">Evénements</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/commentaire">Commentaires</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/membre">Membres</router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <router-view />
+</template>

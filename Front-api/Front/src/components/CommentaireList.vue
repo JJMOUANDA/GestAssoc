@@ -1,8 +1,8 @@
 <script setup>
 
 import { ref, onMounted } from 'vue';
-import CommentaireService from '../CommentaireService';
-import {formatDate} from "@/dateUtil.js";
+import CommentaireService from '../services/CommentaireService.js';
+import {formatDate} from "@/util/dateUtil.js";
 
 const commentaires = ref([]);
 
