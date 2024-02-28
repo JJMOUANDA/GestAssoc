@@ -1,9 +1,10 @@
 <script setup>
 
+import Evenements from "@/components/Evenements.vue";
 </script>
 
 <template>
-  <h2>Gestion Assoc</h2>
+  <Evenements/>
 </template>
 
 <style scoped>

@@ -16,9 +16,15 @@ class CommentaireService {
         return axios.get(`${API_URL}/evenement/${id}`);
     }
 
-    createCommentaire(commentaire) {
-        return axios.post(API_URL, commentaire);
-    }
+    createCommentaire = (idEvenement, idAuteur, texteCommentaire) => {
+        return axios.post(API_URL, null, {
+            params: {
+                evenementId: idEvenement,
+                auteurId: idAuteur,
+                texte: texteCommentaire
+            }
+        });
+    };
 
     updateCommentaire(id, texte) {
         return axios.put(`${API_URL}/${id}`, texte);

@@ -1,4 +1,6 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import LieuService from '../services/LieuService.js';
 import {ref, onMounted, nextTick} from 'vue';
 import LieuService from '../LieuService';
 import L from 'leaflet';

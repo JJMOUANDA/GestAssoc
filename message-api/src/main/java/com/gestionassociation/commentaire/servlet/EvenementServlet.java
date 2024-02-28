@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-@WebServlet(name = "Evenement", value = "/commentaire/evenement")
+@WebServlet(name = "Evenement", value = "/commentaire/evenement/*")
 public class EvenementServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
