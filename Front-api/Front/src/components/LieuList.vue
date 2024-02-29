@@ -68,21 +68,19 @@ function initMap(lieu, coords) {
 
 <style>
 
-/* Styles pour EvenementsList ici */
-ul {
-  list-style-type: none;
-  padding: 0;
+/* Style pour le conteneur de la carte */
+.map-container {
+  height: 300px; /* Hauteur du conteneur de la carte */
+  width: 50%; /* Largeur du conteneur (peut être ajustée selon vos besoins) */
+  margin-top: 20px; /* Marge au-dessus de la carte, ajustable selon votre mise en page */
 }
 
-li {
-  margin-bottom: 20px;
+/* Si vous utilisez un ID spécifique pour le conteneur de la carte dans votre template */
+#map {
+  height: 400px; /* Hauteur du conteneur de la carte */
+  width: 100%; /* Largeur du conteneur (peut être ajustée selon vos besoins) */
+  margin-top: 20px; /* Marge au-dessus de la carte, ajustable selon votre mise en page */
 }
 
-h3 {
-  margin: 0 0 10px 0;
-}
 
-p {
-  margin: 0;
-}
 </style>
