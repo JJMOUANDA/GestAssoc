@@ -13,10 +13,11 @@
           </template>
           <template v-else>
             <h3>Commentaires</h3>
-            <li v-for="commentaire in commentaires[evenement.id].data" :key="commentaire.id">
-              {{ commentaire.texte }} - {{ formatDate(commentaire.date) }}
-              <button @click="CommentaireService.deleteCommentaire(commentaire.id)">Supprimer</button>
-            </li>
+            <template v-for="commentaire in commentaires[evenement.id].data" :key="commentaire.id">
+              <CommentaireCard :id="commentaire.id" :auteur="commentaire.auteurId"
+                               :evenement="commentaire.evenementId"
+                               :texte="commentaire.texte" :date="commentaire.date"/>
+            </template>
           </template>
         </ul>
       </li>
@@ -26,8 +27,8 @@
 
 <script setup>
 import {onMounted, ref} from 'vue'
-import {formatDate} from "@/util/dateUtil.js";
 import CommentaireService from "@/services/CommentaireService.js";
+import CommentaireCard from "@/components/CommentaireCard.vue";
 
 let commentaires = ref([]);
 let evenements = ref([]);

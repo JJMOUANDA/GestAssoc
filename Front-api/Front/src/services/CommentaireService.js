@@ -27,7 +27,11 @@ class CommentaireService {
     };
 
     updateCommentaire(id, texte) {
-        return axios.put(`${API_URL}/${id}`, texte);
+        return axios.put(`${API_URL}/${id}`, null, {
+            params: {
+                texte: texte
+            }
+        });
     }
 
     deleteCommentaire(id) {

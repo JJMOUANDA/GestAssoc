@@ -1,8 +1,9 @@
 <script setup>
 
-import { ref, onMounted } from 'vue';
+import {ref, onMounted} from 'vue';
 import CommentaireService from '../services/CommentaireService.js';
 import {formatDate} from "@/util/dateUtil.js";
+import CommentaireCard from "@/components/CommentaireCard.vue";
 
 const commentaires = ref([]);
 
@@ -21,12 +22,13 @@ onMounted(async () => {
   <div>
     <h2>Liste des Commentaires</h2>
     <ul>
-      <li v-for="commentaire in commentaires" :key="commentaire.id">
-        {{ commentaire.texte }} - {{ formatDate(commentaire.date) }}
-      </li>
+
+      <template v-for="commentaire in commentaires" :key="commentaire.id">
+        <CommentaireCard :id="commentaire.id" :auteur="commentaire.auteurId" :evenement="commentaire.evenementId"
+                         :texte="commentaire.texte" :date="commentaire.date"/>
+      </template>
     </ul>
   </div>
-
 </template>
 
 <style scoped>

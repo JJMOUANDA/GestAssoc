@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory} from "vue-router";
 import Evenement from "@/pages/Evenement.vue";
 import Commentaire from "@/pages/Commentaire.vue";
+import CommentaireEdit from "@/pages/CommentaireEdit.vue";
 
 const routes = [
     {
@@ -10,8 +11,13 @@ const routes = [
     },
     {
         path: "/commentaire",
-        name: "Commentaire",
+        name: "Commentaires",
         component: Commentaire
+    },
+    {
+        path: "/commentaire/:id",
+        name: "Commentaire",
+        component: CommentaireEdit
     }
 ];
 
