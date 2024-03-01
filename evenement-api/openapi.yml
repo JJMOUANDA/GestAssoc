@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Event API
+  title: Evenement_api
   version: 1.0.0
 paths:
   /events:
@@ -29,11 +29,11 @@ paths:
     get:
       summary: Récupère un événement par son ID
       parameters:
-      - name: eventId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Un événement détaillé
@@ -44,11 +44,11 @@ paths:
     put:
       summary: Met à jour un événement
       parameters:
-      - name: eventId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -61,11 +61,11 @@ paths:
     delete:
       summary: Supprime un événement
       parameters:
-      - name: eventId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '204':
           description: Événement supprimé
