@@ -10,9 +10,12 @@ import jakarta.persistence.Query;
 import jakarta.persistence.Persistence;
 import org.example.pojo.mariadb.Evenement;
 import com.google.gson.Gson;
+import jakarta.servlet.annotation.WebServlet;
 
 import java.io.IOException;
 
+
+@WebServlet(name = "Evenement", value = "/evenement/*")
 public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
   private EntityManagerFactory emf;
 
@@ -22,64 +25,53 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
     emf = Persistence.createEntityManagerFactory("gestion_association");
   }
 
-  public List<Evenement> getListEvenement() {
+  @Override
+  public void doGet(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, java.io.IOException {
+    String path = req.getPathInfo();
+    if (path != null) {
+      String[] params = path.substring(1).split("/");
+      if (params.length == 1 && "listeEvenement".equals(params[0])) {
+        java.util.List<Evenement> evenements = getListEvent();
+        sendJson(resp, evenements);
+      } else if (params.length == 2 && "getEvenement".equals(params[0])) {
+        try {
+          Long id = Long.parseLong(params[1]);
+          org.example.pojo.mariadb.Evenement evenement = getEvent(id);
+          if (evenement != null) {
+            sendJson(resp, evenement);
+          } else {
+            resp.sendError(jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND, "Événement non trouvé");
+          }
+        } catch (NumberFormatException e) {
+          resp.sendError(jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST, "Format d'ID invalide");
+        }
+      } else {
+        resp.sendError(jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST, "Requête non reconnue ou mal formée");
+      }
+    } else {
+      resp.sendError(jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST, "Aucun chemin d'accès spécifié");
+    }
+  }
+
+  public List<Evenement> getListEvent() {
     EntityManager em = emf.createEntityManager();
     try {
-      Query requete = em.createQuery("SELECT s FROM Evenement s");
-      return (List<Evenement>) requete.getResultList();
-    } catch (Exception e) {
+      Query query = em.createQuery("SELECT e FROM Evenement e");
+      return query.getResultList();
+    } catch (jakarta.persistence.PersistenceException e) {
+      // Log the exception
       return null;
     }finally {
       em.close();
     }
   }
 
-  public Boolean addEvenement(Evenement evenement) {
+  public Evenement getEvent(Long id) {
     EntityManager em = emf.createEntityManager();
     try {
-      em.getTransaction().begin();
-      em.persist(evenement);
-      em.getTransaction().commit();
-      return true;
-    } catch (Exception e) {
-      return false;
+      return em.find(Evenement.class, id);
     } finally {
       em.close();
-    }
-  }
-
-
-  @Override
-  protected void doGet(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, java.io.IOException {
-    String operation = req.getParameter("operation");
-    // Récuperation de la liste des evenements
-    if (operation.equals("listeEvenement") || operation.equals("events")) {
-      req.setAttribute("evenement", this.getListEvenement());
-      resp.setContentType("application/json");
-      getServletConfig().getServletContext().getRequestDispatcher("/AfficheEvenement.jsp")
-          .forward(req, resp);
-    }
-    // Récuperation d'un evenement par son ID
-    else if (operation.equals("getEvenement")) {
-      String id = req.getParameter("id");
-      EntityManager em = emf.createEntityManager();
-      if (id != null && !id.isEmpty()) {
-        try {
-          int eventId = Integer.parseInt(id);
-
-          Evenement evenement = em.find(Evenement.class, eventId);
-          req.setAttribute("evenement", evenement);
-          getServletConfig().getServletContext().getRequestDispatcher("/afficheEvenement.jsp")
-              .forward(req, resp);
-        } catch (NumberFormatException e) {
-          resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Format d'ID invalide");
-        }finally {
-          em.close();
-        }
-      } else {
-        resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID manquant");
-      }
-
     }
   }
 
@@ -89,51 +81,97 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
     Evenement evenement = new Gson().fromJson(req.getReader(), Evenement.class);
 
     // Ajouter l'événement à la base de données
-    if (addEvenement(evenement)) {
-      resp.setStatus(HttpServletResponse.SC_CREATED);
+    if (addEvent(evenement)) {
+      resp.setStatus(HttpServletResponse.SC_CREATED, "Événement créé");
     } else {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Impossible de créer l'événement");
     }
   }
 
-  @Override
-  protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    String eventId = req.getParameter("id");
-
-    if (eventId == null || eventId.isEmpty()) {
-      resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID d'événement manquant");
-      return;
-    }
-
-    Evenement evenementToUpdate = new Gson().fromJson(req.getReader(), Evenement.class);
-    evenementToUpdate.setId(Long.parseLong(eventId)); // Assurez-vous que l'ID est correctement défini
-
+  public Boolean addEvent(Evenement evenement) {
     EntityManager em = emf.createEntityManager();
     try {
       em.getTransaction().begin();
-      em.merge(evenementToUpdate);
+      if (evenement.getId() != null) { // Vérifier si l'ID est défini
+        em.merge(evenement); // Utiliser merge pour une entité existante
+      } else {
+        em.persist(evenement); // Utiliser persist pour une nouvelle entité
+      }
       em.getTransaction().commit();
-      resp.setStatus(HttpServletResponse.SC_OK);
+      return true;
     } catch (Exception e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors de la mise à jour de l'événement");
+      e.printStackTrace();
+      return false;
+    } finally {
+      em.close();
+    }
+  }
+
+  @Override
+  protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    String path = req.getPathInfo();
+    if (path != null && path.length() > 1) {
+      String idStr = path.substring(1); // Supposer que l'ID est le premier paramètre après /evenement/
+      try {
+        Long id = Long.parseLong(idStr);
+        Evenement evenementToUpdate = new Gson().fromJson(req.getReader(), Evenement.class);
+        evenementToUpdate.setId(id);
+        if (updateEvent(evenementToUpdate)) {
+          resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+          resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors de la mise à jour");
+        }
+      } catch (NumberFormatException e) {
+        resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Format d'ID invalide");
+      }
+    } else {
+      resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID d'événement manquant");
+    }
+  }
+
+  public boolean updateEvent(Evenement evenementToUpdate) {
+    EntityManager em = emf.createEntityManager();
+    try {
+      em.getTransaction().begin();
+      Evenement evenementExisting = em.find(Evenement.class, evenementToUpdate.getId());
+      if (evenementExisting != null) {
+        // Mettre à jour uniquement les champs fournis
+        if (evenementToUpdate.getNom() != null) evenementExisting.setNom(evenementToUpdate.getNom());
+        if (evenementToUpdate.getDateHeureDebut() != null) evenementExisting.setDateHeureDebut(evenementToUpdate.getDateHeureDebut());
+        if (evenementToUpdate.getDateHeureFin() != null) evenementExisting.setDateHeureFin(evenementToUpdate.getDateHeureFin());
+        if (evenementToUpdate.getMaxParticipants() != 0) evenementExisting.setMaxParticipants(evenementToUpdate.getMaxParticipants());
+        if (evenementToUpdate.getLieu() != null) evenementExisting.setLieu(evenementToUpdate.getLieu());
+        em.merge(evenementExisting);
+        em.getTransaction().commit();
+        return true;
+      } else {
+        return false; // L'événement avec cet ID n'existe pas
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
     } finally {
       em.close();
     }
   }
 
 
+
+
+
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    String eventId = req.getParameter("id");
+    String path = req.getPathInfo();
 
-    if (eventId == null || eventId.isEmpty()) {
+    if (path == null && path.length() < 1) {
       resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID d'événement manquant");
       return;
     }
+    String idStr = path.substring(1);
 
     EntityManager em = emf.createEntityManager();
     try {
-      Evenement evenementToDelete = em.find(Evenement.class, Long.parseLong(eventId));
+      Evenement evenementToDelete = em.find(Evenement.class, Long.parseLong(idStr));
       if (evenementToDelete != null) {
         em.getTransaction().begin();
         em.remove(evenementToDelete);
@@ -149,6 +187,12 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
     }
   }
 
+  private void sendJson(HttpServletResponse response, Object obj) throws IOException {
+    String json = new Gson().toJson(obj);
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    response.getWriter().write(json);
+  }
 
   @Override
   public void destroy() {
