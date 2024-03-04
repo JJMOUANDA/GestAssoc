@@ -91,6 +91,14 @@ public class CommentaireServlet extends HttpServlet {
 
             Commentaire commentaire = commentaireDAO.getCommentaireById(objectId);
             if (commentaire != null) {
+
+                if (texte.isEmpty() || texte.isBlank() || texte.equals(commentaire.getTexte())) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.setContentType("text/plain");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write("Paramètre invalide");
+                    return;
+                }
                 commentaire.setTexte(texte);
                 commentaire.setDate(new Date());
 
