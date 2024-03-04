@@ -8,7 +8,11 @@
     </div>
     <div class="d-flex justify-content-between mt-3">
       <button type="button" class="btn btn-danger me-2" @click="deleteComment">Supprimer</button>
-      <button type="button" class="btn btn-success" @click="editcomment">Modifier</button>
+      <button type="button"
+              :class="isDisabled ? 'btn btn-secondary disabled' : 'btn btn-success'"
+              :disabled="isDisabled"
+              @click="editComment">Modifier
+      </button>
     </div>
   </div>
 </template>
@@ -17,7 +21,7 @@
 
 import {useRoute} from 'vue-router';
 import CommentaireService from "@/services/CommentaireService.js";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import router from "@/router/index.js";
 
 const route = useRoute();
@@ -45,7 +49,7 @@ const deleteComment = async () => {
   }
 };
 
-const editcomment = async () => {
+const editComment = async () => {
   try {
     await CommentaireService.updateCommentaire(commentaireId, nouveauTexte.value);
     await router.push({path: '/commentaire', query: {message: 'Commentaire modifié avec succès'}});
@@ -54,8 +58,11 @@ const editcomment = async () => {
   }
 };
 
+const isDisabled = computed(() => {
+  return !nouveauTexte.value || nouveauTexte.value === commentaire.value.texte;
+});
+
 </script>
 
 <style scoped>
-/* Styles spécifiques au composant */
 </style>
