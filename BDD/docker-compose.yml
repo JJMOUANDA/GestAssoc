@@ -29,7 +29,7 @@ services:
     image: phpmyadmin:5.2.1-apache
     container_name: phpmyadmin_gestassoc
     ports:
-      - "8080:80"
+      - "8091:80"
     environment:
       PMA_HOST: mariadb
       PMA_PORT: 3306
