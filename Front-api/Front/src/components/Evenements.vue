@@ -13,10 +13,10 @@
           </template>
           <template v-else>
             <h3>Commentaires</h3>
-            <template v-for="commentaire in commentaires[evenement.id].data" :key="commentaire.id">
-              <CommentaireCard :id="commentaire.id" :auteur="commentaire.auteurId"
-                               :evenement="commentaire.evenementId"
-                               :texte="commentaire.texte" :date="commentaire.date"/>
+            <template v-for="event in events[lieu.id].data" :key="event.id">
+              <EvenementCard :id="event.id" :nom="event.auteurId"
+                               :evenement="event.evenementId"
+                               :texte="event.texte" :date="event.date"/>
             </template>
           </template>
         </ul>
@@ -29,6 +29,7 @@
 import {onMounted, ref} from 'vue'
 import CommentaireService from "@/services/CommentaireService.js";
 import CommentaireCard from "@/components/CommentaireCard.vue";
+import Evenement from "@/pages/Evenement.vue";
 
 let commentaires = ref([]);
 let evenements = ref([]);
