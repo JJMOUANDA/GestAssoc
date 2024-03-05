@@ -1,5 +1,6 @@
 <script setup>
 import CommentaireService from '../services/CommentaireService.js';
+import router from "@/router/index.js";
 
 let idEvenement = '';
 let idAuteur = '';
@@ -13,6 +14,7 @@ const handleSubmit = async (event) => {
     idEvenement = '';
     idAuteur = '';
     texteCommentaire = '';
+    await router.push({path: '/commentaire', query: {message: 'Commentaire créé avec succès'}});
   } catch (error) {
     console.error(error);
   }
