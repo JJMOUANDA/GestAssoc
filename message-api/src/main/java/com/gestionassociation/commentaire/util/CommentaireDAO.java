@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Sorts;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class CommentaireDAO {
         MongoCollection<Commentaire> commentaires = database.getCollection("commentaires", Commentaire.class);
         List<Commentaire> commentairesList = new ArrayList<>();
 
-        commentaires.find().into(commentairesList);
+        commentaires.find().sort(Sorts.descending("date")).into(commentairesList);
         return commentairesList;
     }
 
@@ -33,7 +34,7 @@ public class CommentaireDAO {
         MongoCollection<Commentaire> commentaires = database.getCollection("commentaires", Commentaire.class);
         List<Commentaire> commentairesList = new ArrayList<>();
 
-        commentaires.find(eq("evenementId", id)).into(commentairesList);
+        commentaires.find(eq("evenementId", id)).sort(Sorts.descending("date")).into(commentairesList);
         return commentairesList;
     }
 }
