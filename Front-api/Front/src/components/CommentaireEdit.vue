@@ -59,7 +59,7 @@ const editComment = async () => {
 };
 
 const isDisabled = computed(() => {
-  return !nouveauTexte.value || nouveauTexte.value === commentaire.value.texte;
+  return !nouveauTexte.value || nouveauTexte.value === commentaire.value.texte || nouveauTexte.value.trim() === '';
 });
 
 </script>
