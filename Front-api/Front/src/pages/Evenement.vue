@@ -8,7 +8,6 @@ import MembreList from "@/components/MembreList.vue";
 <template>
   <Evenements/>
   <LieuList/>
-  <MembreList/>
 </template>
 
 <style scoped>
