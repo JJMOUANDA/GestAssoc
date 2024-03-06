@@ -1,0 +1,75 @@
+<template>
+  <div>
+    <h2>Événements à venir</h2>
+    <ul>
+      <li v-for="evenement in evenements" :key="evenement.id">
+        <h3>{{ evenement.nom }}</h3>
+        <p>Date: {{ evenement.date }} - Heure: {{ evenement.heure }}</p>
+        <p>Lieu: {{ evenement.lieu }} - Capacité: {{ evenement.capacite }}</p>
+        <p>Participants: {{ evenement.participants }}/{{ evenement.capacite }}</p>
+        <ul>
+          <template v-if="Object.keys(commentaires[evenement.id].data).length === 0">
+            <h3>Aucun commentaire pour cet événement</h3>
+          </template>
+          <template v-else>
+            <h3>Commentaires</h3>
+            <template v-for="commentaire in commentaires[evenement.id].data" :key="commentaire.id">
+              <CommentaireCard :id="commentaire.id" :auteur="commentaire.auteurId"
+                               :evenement="commentaire.evenementId"
+                               :texte="commentaire.texte" :date="commentaire.date"/>
+            </template>
+          </template>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import {onMounted, ref} from 'vue'
+import CommentaireService from "@/services/CommentaireService.js";
+import CommentaireCard from "@/components/CommentaireCard.vue";
+
+let commentaires = ref([]);
+let evenements = ref([]);
+
+onMounted(async () => {
+  evenements.value = [
+    {
+      id: 1,
+      nom: 'Événement 1',
+      date: '2024-03-01',
+      heure: '18:00',
+      lieu: 'Salle A',
+      capacite: 50,
+      capaciteMax: 100,
+      participants: 35
+    },
+    {
+      id: 2,
+      nom: 'Événement 2',
+      date: '2024-03-15',
+      heure: '16:00',
+      lieu: 'Salle B',
+      capacite: 30,
+      capaciteMax: 50,
+      participants: 20
+    },
+    {
+      id: 3,
+      nom: 'Événement 3',
+      date: '2024-04-05',
+      heure: '19:30',
+      lieu: 'Salle C',
+      capacite: 40,
+      capaciteMax: 60,
+      participants: 10
+    }
+  ];
+
+  for (let evenement of evenements.value) {
+    commentaires.value[evenement.id] = await CommentaireService.getCommentaireByEvenementId(evenement.id);
+  }
+});
+
+</script>
