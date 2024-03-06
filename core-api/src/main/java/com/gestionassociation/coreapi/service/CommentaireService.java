@@ -7,6 +7,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -25,7 +26,6 @@ public class CommentaireService {
     public List<Commentaire> getListeCommentaire() {
         ResponseEntity<List<Commentaire>> exchange = restTemplate.exchange(MESSAGE_API_URL + "/commentaire", HttpMethod.GET, null, new ParameterizedTypeReference<>() {
         });
-        System.out.println(exchange.getBody());
         return exchange.getBody();
     }
 
