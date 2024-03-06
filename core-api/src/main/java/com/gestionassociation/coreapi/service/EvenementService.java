@@ -2,8 +2,7 @@ package com.gestionassociation.coreapi.service;
 
 import com.gestionassociation.coreapi.model.Evenement;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,4 +25,31 @@ public class EvenementService {
         });
         return exchange.getBody();
     }
+
+    public Evenement getEvenementById(int id) {
+        ResponseEntity<Evenement> exchange = restTemplate.exchange(MESSAGE_API_URL + "/evenement/getEvenement/" + id, HttpMethod.GET, null, Evenement.class);
+        return exchange.getBody();
+    }
+
+    public String addEvenement(Evenement evenement) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Evenement> requestEntity = new HttpEntity<>(evenement, headers);
+        ResponseEntity<String> exchange = restTemplate.exchange(MESSAGE_API_URL + "/evenement/", HttpMethod.POST, requestEntity, String.class);
+        return exchange.getBody();
+    }
+
+    public String editEvenement(int id, Evenement evenement) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Evenement> requestEntity = new HttpEntity<>(evenement, headers);
+        ResponseEntity<String> exchange = restTemplate.exchange(MESSAGE_API_URL + "/evenement/" + id, HttpMethod.PUT, requestEntity, String.class);
+        return exchange.getBody();
+    }
+
+    public String deleteEvenement(int id) {
+        ResponseEntity<String> exchange = restTemplate.exchange(MESSAGE_API_URL + "/evenement/" + id, HttpMethod.DELETE, null, String.class);
+        return exchange.getBody();
+    }
+
 }
