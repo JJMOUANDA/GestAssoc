@@ -15,14 +15,17 @@ public class Evenement {
 
     private String nom;
 
+    @Column(name = "date_heure_debut")
     private Date dateHeureDebut;
 
+    @Column(name = "date_heure_fin")
     private Date dateHeureFin;
 
+    @Column(name = "max_participants")
     private int maxParticipants;
 
     @ManyToOne
-    @JoinColumn(name = "lieuId")
+    @JoinColumn(name = "lieu_id")
     private Lieu lieu;
     public Evenement() {
     }

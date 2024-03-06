@@ -12,6 +12,7 @@
     <server-settings>
       <option name="BASE_DIRECTORY_NAME" value="bf7bbd2b-30ce-460f-839b-5fee8efda6b1" />
       <option name="HTTP_PORT" value="8081" />
+      <option name="JNDI_PORT" value="1098" />
     </server-settings>
     <predefined_log_file enabled="true" id="Tomcat" />
     <predefined_log_file enabled="true" id="Tomcat Catalina" />

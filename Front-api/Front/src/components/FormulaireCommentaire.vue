@@ -1,6 +1,7 @@
 <script setup>
 import CommentaireService from '../services/CommentaireService.js';
 import router from "@/router/index.js";
+import {ref} from "vue";
 
 let idEvenement = '';
 let idAuteur = '';
@@ -15,6 +16,7 @@ const handleSubmit = async (event) => {
     idAuteur = '';
     texteCommentaire = '';
     await router.push({path: '/commentaire', query: {message: 'Commentaire créé avec succès'}});
+    location.reload();
   } catch (error) {
     console.error(error);
   }

@@ -27,7 +27,7 @@ public class LieuServiceImpl {
 
     public LieuDto findById(Long id) {
         Lieu lieu = lieuRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Lieu not found with id " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Lieu.java not found with id " + id));
         return convertToDto(lieu);
     }
 
