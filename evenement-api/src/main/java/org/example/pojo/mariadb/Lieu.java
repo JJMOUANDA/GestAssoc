@@ -14,6 +14,7 @@ public class Lieu {
 
     private String adresse;
 
+    @Column(name = "capacite_accueil")
     private int capaciteAccueil;
 
     public Lieu() {
