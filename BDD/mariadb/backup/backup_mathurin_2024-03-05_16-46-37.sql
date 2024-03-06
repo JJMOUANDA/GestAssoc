@@ -25,13 +25,13 @@ DROP TABLE IF EXISTS `evenement`;
 CREATE TABLE `evenement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
-  `dateHeureDebut` datetime NOT NULL,
-  `dateHeureFin` datetime NOT NULL,
-  `maxParticipants` int(11) NOT NULL,
-  `lieuId` int(11) NOT NULL,
+  `date_heure_debut` datetime NOT NULL,
+  `date_heure_fin` datetime NOT NULL,
+  `max_participants` int(11) NOT NULL,
+  `lieu_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `lieuId` (`lieuId`),
-  CONSTRAINT `evenement_ibfk_1` FOREIGN KEY (`lieuId`) REFERENCES `lieu` (`id`)
+  KEY `lieuId` (`lieu_id`),
+  CONSTRAINT `evenement_ibfk_1` FOREIGN KEY (`lieu_id`) REFERENCES `lieu` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,13 +53,13 @@ DROP TABLE IF EXISTS `inscription`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inscription` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `membreId` int(11) NOT NULL,
-  `evenementId` int(11) NOT NULL,
+  `membre_id` int(11) NOT NULL,
+  `evenement_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_inscription` (`membreId`,`evenementId`),
-  KEY `evenementId` (`evenementId`),
-  CONSTRAINT `inscription_ibfk_1` FOREIGN KEY (`membreId`) REFERENCES `membre` (`id`),
-  CONSTRAINT `inscription_ibfk_2` FOREIGN KEY (`evenementId`) REFERENCES `evenement` (`id`)
+  KEY `membreId` (`membre_id`),
+  KEY `evenementId` (`evenement_id`),
+  CONSTRAINT `inscription_ibfk_1` FOREIGN KEY (`membre_id`) REFERENCES `membre` (`id`),
+  CONSTRAINT `inscription_ibfk_2` FOREIGN KEY (`evenement_id`) REFERENCES `evenement` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -83,9 +83,9 @@ CREATE TABLE `lieu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   `adresse` varchar(255) NOT NULL,
-  `capaciteAccueil` int(11) NOT NULL,
+  `capacite_accueil` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,12 +108,12 @@ CREATE TABLE `membre` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   `prenom` varchar(255) NOT NULL,
-  `dateNaissance` date NOT NULL,
+  `date_naissance` date NOT NULL,
   `adresse` varchar(255) NOT NULL,
   `mail` varchar(255) NOT NULL,
-  `motDePasse` char(64) NOT NULL,
+  `mot_de_passe` char(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-20 21:39:12
+-- Dump completed on 2024-03-05 15:46:37
