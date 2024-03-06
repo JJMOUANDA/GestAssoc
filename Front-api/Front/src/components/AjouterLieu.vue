@@ -35,7 +35,7 @@ const lieuForm = ref({
 const ajouterLieu = async () => {
   try {
     const response = await LieuService.createLieu(lieuForm.value);
-    alert('Lieu ajouté avec succès');
+    alert('Lieu.java ajouté avec succès');
     lieuForm.value = { nom: '', adresse: '', capacite_accueil: '' }; // Réinitialiser le formulaire
     router.push('/evenement');
   }
