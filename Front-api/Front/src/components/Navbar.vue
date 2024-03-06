@@ -17,6 +17,10 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/membre">Membres</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/ajouterLieu">Ajouter Lieu</router-link>
+          </li>
+
         </ul>
       </div>
     </div>

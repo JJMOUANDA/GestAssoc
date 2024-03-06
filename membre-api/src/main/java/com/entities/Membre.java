@@ -14,11 +14,11 @@ public class Membre {
 	private Long id;
 	private String nom;
 	private String prenom;
-	@Column(name = "dateNaissance")
+	@Column(name = "date_naissance")
 	private LocalDate dateNaissance;
 	private String adresse;
 	private String mail;
-	@Column(name = "motDePasse")
+	@Column(name = "mot_de_passe")
 	private String motDePasse;
 
 	
