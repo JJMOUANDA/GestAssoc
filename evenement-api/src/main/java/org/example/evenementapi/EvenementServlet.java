@@ -1,5 +1,6 @@
 package org.example.evenementapi;
 
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,12 +19,12 @@ import java.io.IOException;
 
 @WebServlet(name = "Evenement", value = "/evenement/*")
 public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
-    private EntityManager em;
+    private EntityManagerFactory emf;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        em = Persistence.createEntityManagerFactory("gestion_association").createEntityManager();
+        emf = Persistence.createEntityManagerFactory("gestion_association");
     }
 
     @Override
@@ -55,6 +56,7 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
     }
 
     public List<Evenement> getListEvent() {
+        EntityManager em = emf.createEntityManager();
         try {
             Query query = em.createQuery("SELECT e FROM Evenement e");
             return query.getResultList();
@@ -67,6 +69,7 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
     }
 
     public Evenement getEvent(Long id) {
+        EntityManager em = emf.createEntityManager();
         try {
             return em.find(Evenement.class, id);
         } finally {
@@ -88,6 +91,7 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
     }
 
     public Boolean addEvent(Evenement evenement) {
+        EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             if (evenement.getId() != null) { // Vérifier si l'ID est défini
@@ -128,6 +132,7 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
     }
 
     public boolean updateEvent(Evenement evenementToUpdate) {
+        EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             Evenement evenementExisting = em.find(Evenement.class, evenementToUpdate.getId());
@@ -166,6 +171,7 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
         }
         String idStr = path.substring(1);
 
+        EntityManager em = emf.createEntityManager();
         try {
             Evenement evenementToDelete = em.find(Evenement.class, Long.parseLong(idStr));
             if (evenementToDelete != null) {
@@ -192,7 +198,7 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
 
     @Override
     public void destroy() {
-        em.close();
+        emf.close();
         super.destroy();
     }
 }
