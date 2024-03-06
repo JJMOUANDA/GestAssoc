@@ -19,38 +19,63 @@ public class CommentaireController {
     }
 
     @GetMapping("/commentaire")
-    public ResponseEntity<List<Commentaire>> getListeCommentaire() {
-        List<Commentaire> commentaires = commentaireService.getListeCommentaire();
-        return new ResponseEntity<>(commentaires, HttpStatus.OK);
+    public ResponseEntity<?> getListeCommentaire() {
+        try {
+            List<Commentaire> commentaires = commentaireService.getListeCommentaire();
+            return new ResponseEntity<>(commentaires, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Une erreur s'est produite", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/commentaire/{id}")
-    public ResponseEntity<Commentaire> getCommentaire(@PathVariable String id) {
-        Commentaire commentaire = commentaireService.getCommentaireById(id);
-        return new ResponseEntity<>(commentaire, HttpStatus.OK);
+    public ResponseEntity<?> getCommentaire(@PathVariable String id) {
+        try {
+            Commentaire commentaire = commentaireService.getCommentaireById(id);
+            return new ResponseEntity<>(commentaire, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Une erreur s'est produite", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/commentaire/evenement/{id}")
-    public ResponseEntity<List<Commentaire>> getCommentaireByEvenementId(@PathVariable int id) {
-        List<Commentaire> commentaires = commentaireService.getCommentaireByEvenementId(id);
-        return new ResponseEntity<>(commentaires, HttpStatus.OK);
+    public ResponseEntity<?> getCommentaireByEvenementId(@PathVariable int id) {
+        try {
+            List<Commentaire> commentaires = commentaireService.getCommentaireByEvenementId(id);
+            return new ResponseEntity<>(commentaires, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Une erreur s'est produite", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @PutMapping("/commentaire/{id}")
     public ResponseEntity<String> editCommentaire(@PathVariable String id, @RequestParam String texte) {
-        String response = commentaireService.editCommentaire(id, texte);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try {
+            String response = commentaireService.editCommentaire(id, texte);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Une erreur s'est produite", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/commentaire/{id}")
     public ResponseEntity<String> deleteCommentaire(@PathVariable String id) {
-        String response = commentaireService.deleteCommentaire(id);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try {
+            String response = commentaireService.deleteCommentaire(id);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Une erreur s'est produite", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/commentaire")
     public ResponseEntity<String> addCommentaire(@RequestParam int evenementId, @RequestParam int auteurId, @RequestParam String texte) {
-        String response = commentaireService.addCommentaire(evenementId, auteurId, texte);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try {
+            String response = commentaireService.addCommentaire(evenementId, auteurId, texte);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Une erreur s'est produite", HttpStatus.BAD_REQUEST);
+        }
     }
 }
