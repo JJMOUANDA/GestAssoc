@@ -1,22 +1,22 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/evenement';
+const API_URL = 'http://localhost:8082/evenement-api/evenement';
 
 class EvenementService {
     getAllEvent() {
-        return axios.get(API_URL);
+        return axios.get(`${API_URL}/listeEvenement`);
     }
 
     getEventById(id) {
         return axios.get(`${API_URL}/${id}`);
     }
 
-    createEvent(lieu) {
-        return axios.post(API_URL, lieu);
+    createEvent(event) {
+        return axios.post(API_URL, event);
     }
 
-    updateEvent(id, lieu) {
-        return axios.put(`${API_URL}/${id}`, lieu);
+    updateEvent(id, event) {
+        return axios.put(`${API_URL}/${id}`, event);
     }
 
     deleteEvent(id) {

@@ -84,7 +84,8 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
 
         // Ajouter l'événement à la base de données
         if (addEvent(evenement)) {
-            resp.setStatus(HttpServletResponse.SC_CREATED, "Événement créé");
+            resp.setStatus(HttpServletResponse.SC_CREATED);
+            resp.getWriter().write("Événement créé");
         } else {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Impossible de créer l'événement");
         }
