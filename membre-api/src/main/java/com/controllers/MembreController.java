@@ -8,7 +8,7 @@ import com.services.impl.MembreServiceImpl;
 import java.util.List;
 
 @RestController
-@RequestMapping("/membre")
+@RequestMapping("/membres")
 public class MembreController {
 	
 	private final MembreServiceImpl membreService;
@@ -48,6 +48,15 @@ public class MembreController {
 	@DeleteMapping("/{id}")
 	public Boolean deleteMembre(@PathVariable Long id){
 		return membreService.deleteMembre(id);
+	}
+
+	/**
+	 * Update a membre
+	 */
+	@PutMapping("/{id}")
+	public MembreDto editMembre(@PathVariable Long id, final @RequestBody MembreDto membreDto){
+		membreDto.setId(id);
+		return membreService.saveMembre(membreDto);
 	}
 	
 }
