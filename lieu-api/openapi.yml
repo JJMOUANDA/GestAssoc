@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Lieu API
+  title: Lieu.java API
   version: 1.0.0
 paths:
 
@@ -64,7 +64,7 @@ paths:
               $ref: '#/components/schemas/Location'
       responses:
         '200':
-          description: Lieu mis à jour
+          description: Lieu.java mis à jour
           content:
             application/json:
               schema:
@@ -80,7 +80,7 @@ paths:
             format: uuid
       responses:
         '204':
-          description: Lieu supprimé
+          description: Lieu.java supprimé
 components:
   schemas:
     # Schéma pour un lieu

@@ -96,7 +96,7 @@ const modifierLieu = async (id) => {
       lieux.value[index] = { ...lieux.value[index], ...lieuEnEdition.value };
     }
     lieuIdEnEdition.value = null; // Termine l'édition
-    alert('Lieu modifié avec succès');
+    alert('Lieu.java modifié avec succès');
   } catch (error) {
     console.error("Erreur lors de la modification du lieu :", error);
   }
