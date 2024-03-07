@@ -4,7 +4,6 @@ import LieuService from '../services/LieuService.js';
 import L from 'leaflet';
 
 import EvenementService from '../services/EvenementService.js';
-import {formatDate} from '@/util/dateUtil.js';
 import 'leaflet/dist/leaflet.css';
 
 const lieux = ref([]);
@@ -70,14 +69,14 @@ async function supprimerLieu(idLieu) {
   console.log(`Tentative de suppression du lieu avec l'ID : ${idLieu}`);
   try {
 
-    // recupere touts les evenements
+   /* // recupere touts les evenements
     const evenements = await EvenementService.getAllEvent();
     // recupere les evenements qui ont le lieu a supprimer
     const evenementsLieu = evenements.data.filter(evenement => evenement.lieu.id === idLieu);
     // supprime les evenements qui ont le lieu a supprimer
     for (const evenement of evenementsLieu) {
       await EvenementService.deleteEvent(evenement.id);
-    }
+    }*/
     /*TODO : Supprimer l'évenement lié au lieu à supprimer. */
     const response = await LieuService.deleteLieu(idLieu);
 
