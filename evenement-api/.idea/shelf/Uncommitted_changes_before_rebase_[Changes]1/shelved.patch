@@ -1,0 +1,138 @@
+Index: openapi.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>openapi: 3.1.0\r\ninfo:\r\n  title: Event API\r\n  version: 1.0.0\r\npaths:\r\n  /events:\r\n    get:\r\n      summary: Liste tous les événements\r\n      responses:\r\n        '200':\r\n          description: Une liste d'événements\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/EventList'\r\n    post:\r\n      summary: Crée un nouvel événement\r\n      requestBody:\r\n        required: true\r\n        content:\r\n          application/json:\r\n            schema:\r\n              $ref: '#/components/schemas/Event'\r\n      responses:\r\n        '201':\r\n          description: Un nouvel événement créé\r\n\r\n  /events/{eventId}:\r\n    get:\r\n      summary: Récupère un événement par son ID\r\n      parameters:\r\n      - name: eventId\r\n        in: path\r\n        required: true\r\n        schema:\r\n          type: string\r\n      responses:\r\n        '200':\r\n          description: Un événement détaillé\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Event'\r\n    put:\r\n      summary: Met à jour un événement\r\n      parameters:\r\n      - name: eventId\r\n        in: path\r\n        required: true\r\n        schema:\r\n          type: string\r\n      requestBody:\r\n        required: true\r\n        content:\r\n          application/json:\r\n            schema:\r\n              $ref: '#/components/schemas/Event'\r\n      responses:\r\n        '200':\r\n          description: Événement mis à jour\r\n    delete:\r\n      summary: Supprime un événement\r\n      parameters:\r\n      - name: eventId\r\n        in: path\r\n        required: true\r\n        schema:\r\n          type: string\r\n      responses:\r\n        '204':\r\n          description: Événement supprimé\r\n\r\ncomponents:\r\n  schemas:\r\n    Event:\r\n      type: object\r\n      required:\r\n        - id\r\n        - title\r\n      properties:\r\n        id:\r\n          type: int\r\n        title:\r\n          type: string\r\n        description:\r\n          type: string\r\n        location:\r\n          $ref: '#/components/schemas/Location'\r\n        startTime:\r\n          type: string\r\n          format: date-time\r\n        endTime:\r\n          type: string\r\n          format: date-time\r\n    EventList:\r\n      type: array\r\n      items:\r\n        $ref: '#/components/schemas/Event'\r\n    Location:\r\n      type: object\r\n      properties:\r\n        name:\r\n          type: string\r\n        address:\r\n          type: string\r\n        latitude:\r\n          type: number\r\n        longitude:\r\n          type: number
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/openapi.yml b/openapi.yml
+--- a/openapi.yml	(revision 6e713abe60a51eb7f3f78c2f31d6502cac0c3f1d)
++++ b/openapi.yml	(date 1708557323037)
+@@ -29,11 +29,11 @@
+     get:
+       summary: Récupère un événement par son ID
+       parameters:
+-      - name: eventId
+-        in: path
+-        required: true
+-        schema:
+-          type: string
++        - name: eventId
++          in: path
++          required: true
++          schema:
++            type: string
+       responses:
+         '200':
+           description: Un événement détaillé
+@@ -44,11 +44,11 @@
+     put:
+       summary: Met à jour un événement
+       parameters:
+-      - name: eventId
+-        in: path
+-        required: true
+-        schema:
+-          type: string
++        - name: eventId
++          in: path
++          required: true
++          schema:
++            type: string
+       requestBody:
+         required: true
+         content:
+@@ -61,11 +61,11 @@
+     delete:
+       summary: Supprime un événement
+       parameters:
+-      - name: eventId
+-        in: path
+-        required: true
+-        schema:
+-          type: string
++        - name: eventId
++          in: path
++          required: true
++          schema:
++            type: string
+       responses:
+         '204':
+           description: Événement supprimé
+@@ -106,4 +106,4 @@
+         latitude:
+           type: number
+         longitude:
+-          type: number
+\ No newline at end of file
++          type: number
+Index: src/main/java/org/example/evenementapix/UpdateEventServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/evenementapix/UpdateEventServlet.java b/src/main/java/org/example/evenementapix/UpdateEventServlet.java
+new file mode 100644
+--- /dev/null	(date 1708557323060)
++++ b/src/main/java/org/example/evenementapix/UpdateEventServlet.java	(date 1708557323060)
+@@ -0,0 +1,4 @@
++package org.example.evenementapix;
++
++public class UpdateEventServlet extends jakarta.servlet.http.HttpServlet {
++}
+Index: src/main/java/org/example/evenementapix/CreateEventServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/evenementapix/CreateEventServlet.java b/src/main/java/org/example/evenementapix/CreateEventServlet.java
+new file mode 100644
+--- /dev/null	(date 1708557323070)
++++ b/src/main/java/org/example/evenementapix/CreateEventServlet.java	(date 1708557323070)
+@@ -0,0 +1,4 @@
++package org.example.evenementapix;
++
++    public class CreateEventServlet extends jakarta.servlet.http.HttpServlet{
++}
+Index: src/main/java/org/example/evenementapix/GetEventByIdServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/evenementapix/GetEventByIdServlet.java b/src/main/java/org/example/evenementapix/GetEventByIdServlet.java
+new file mode 100644
+--- /dev/null	(date 1708557323049)
++++ b/src/main/java/org/example/evenementapix/GetEventByIdServlet.java	(date 1708557323049)
+@@ -0,0 +1,4 @@
++package org.example.evenementapix;
++
++public class GetEventByIdServlet extends jakarta.servlet.http.HttpServlet {
++}
+Index: src/main/java/org/example/evenementapix/DeleteEventServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/evenementapix/DeleteEventServlet.java b/src/main/java/org/example/evenementapix/DeleteEventServlet.java
+new file mode 100644
+--- /dev/null	(date 1708557323082)
++++ b/src/main/java/org/example/evenementapix/DeleteEventServlet.java	(date 1708557323082)
+@@ -0,0 +1,4 @@
++package org.example.evenementapix;
++
++public class DeleteEventServlet extends jakarta.servlet.http.HttpServlet {
++}
+Index: src/main/java/org/example/evenementapix/GetAllEventsServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/evenementapix/GetAllEventsServlet.java b/src/main/java/org/example/evenementapix/GetAllEventsServlet.java
+new file mode 100644
+--- /dev/null	(date 1708557323092)
++++ b/src/main/java/org/example/evenementapix/GetAllEventsServlet.java	(date 1708557323092)
+@@ -0,0 +1,4 @@
++package org.example.evenementapix;
++
++public class GetAllEventsServlet extends jakarta.servlet.http.HttpServlet {
++}

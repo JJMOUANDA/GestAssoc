@@ -1,7 +1,9 @@
 <script setup>
 import CommentaireService from '../services/CommentaireService.js';
 import router from "@/router/index.js";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import MembreService from "@/services/MembreService.js";
+import EvenementService from "@/services/EvenementService.js";
 
 let idEvenement = '';
 let idAuteur = '';
@@ -21,6 +23,28 @@ const handleSubmit = async (event) => {
     console.error(error);
   }
 };
+
+let membres = ref([]);
+let evenements = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await MembreService.getAllMembres();
+    membres.value = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+onMounted(async () => {
+  try {
+    const response = await EvenementService.getAllEvent();
+    evenements.value = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 </script>
 
 <template>
@@ -28,23 +52,19 @@ const handleSubmit = async (event) => {
     <fieldset>
       <legend>Ajouter un commentaire</legend>
       <div class="form-group">
-        <label for="exampleSelect1" class="form-label mt-4">Evénement</label>
+        <label for="selectEvenement" class="form-label mt-4">Evénement</label>
         <select v-model="idEvenement" class="form-select" id="selectEvenement">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+          <option v-for="evenement in evenements" :key="evenement.id" :value="evenement.id">{{ evenement.nom }}
+          </option>
         </select>
       </div>
       <div class="form-group">
-        <label for="exampleSelect1" class="form-label mt-4">Auteur</label>
+        <label for="selectAuteur" class="form-label mt-4">Auteur</label>
         <select v-model="idAuteur" class="form-select" id="selectAuteur">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+          <option v-for="membre in membres" :key="membre.id" :value="membre.id">{{ membre.prenom }} {{
+              membre.nom
+            }}
+          </option>
         </select>
       </div>
       <div class="form-group">

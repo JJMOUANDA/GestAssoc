@@ -15,12 +15,14 @@
             <router-link class="nav-link" to="/commentaire">Commentaires</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/membre">Membres</router-link>
+            <router-link class="nav-link" to="/membres">Membres</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/ajouterLieu">Ajouter Lieu</router-link>
           </li>
-
+          <li class="nav-item">
+            <router-link class="nav-link" to="/inscription">Inscription</router-link>
+          </li>
         </ul>
       </div>
     </div>

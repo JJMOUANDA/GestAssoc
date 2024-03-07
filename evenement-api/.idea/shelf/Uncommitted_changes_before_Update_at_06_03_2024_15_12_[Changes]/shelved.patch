@@ -1,0 +1,275 @@
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1709717516869)
++++ b/.idea/vcs.xml	(date 1709717516869)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../Front-api/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/.idea/vcs.xml b/../Front-api/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1709632400130)
++++ b/../Front-api/.idea/vcs.xml	(date 1709632400130)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../Front-api/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/.idea/misc.xml b/../Front-api/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1709632400111)
++++ b/../Front-api/.idea/misc.xml	(date 1709632400111)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../Front-api/Front/src/services/EvenementService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from 'axios';\r\n\r\nconst API_URL = 'http://localhost:8080/evenement';\r\n\r\nclass EvenementService {\r\n    getAllEvent() {\r\n        return axios.get(API_URL);\r\n    }\r\n\r\n    getEventById(id) {\r\n        return axios.get(`${API_URL}/${id}`);\r\n    }\r\n\r\n    createEvent(lieu) {\r\n        return axios.post(API_URL, lieu);\r\n    }\r\n\r\n    updateEvent(id, lieu) {\r\n        return axios.put(`${API_URL}/${id}`, lieu);\r\n    }\r\n\r\n    deleteEvent(id) {\r\n        return axios.delete(`${API_URL}/${id}`);\r\n    }\r\n}\r\n\r\nexport default new EvenementService();\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/Front/src/services/EvenementService.js b/../Front-api/Front/src/services/EvenementService.js
+--- a/../Front-api/Front/src/services/EvenementService.js	(revision 7ebbd3ea574e9aba5210182656ab76866aaa92b6)
++++ b/../Front-api/Front/src/services/EvenementService.js	(date 1709723642666)
+@@ -1,22 +1,22 @@
+ import axios from 'axios';
+ 
+-const API_URL = 'http://localhost:8080/evenement';
++const API_URL = 'http://localhost:8082/evenement-api/evenement';
+ 
+ class EvenementService {
+     getAllEvent() {
+-        return axios.get(API_URL);
++        return axios.get(`${API_URL}/listeEvenement`);
+     }
+ 
+     getEventById(id) {
+-        return axios.get(`${API_URL}/${id}`);
++        return axios.get(`${API_URL}/getEvenement/${id}`);
+     }
+ 
+-    createEvent(lieu) {
+-        return axios.post(API_URL, lieu);
++    createEvent(event) {
++        return axios.post(API_URL, event);
+     }
+ 
+-    updateEvent(id, lieu) {
+-        return axios.put(`${API_URL}/${id}`, lieu);
++    updateEvent(id, event) {
++        return axios.put(`${API_URL}/${id}`, event);
+     }
+ 
+     deleteEvent(id) {
+Index: .idea/checkstyle-idea.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/checkstyle-idea.xml b/.idea/checkstyle-idea.xml
+new file mode 100644
+--- /dev/null	(date 1709717516826)
++++ b/.idea/checkstyle-idea.xml	(date 1709717516826)
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CheckStyle-IDEA" serialisationVersion="2">
++    <checkstyleVersion>10.13.0</checkstyleVersion>
++    <scanScope>JavaOnly</scanScope>
++    <copyLibs>true</copyLibs>
++    <option name="thirdPartyClasspath" />
++    <option name="activeLocationIds" />
++    <option name="locations">
++      <list>
++        <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
++        <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
++      </list>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../Front-api/.idea/checkstyle-idea.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/.idea/checkstyle-idea.xml b/../Front-api/.idea/checkstyle-idea.xml
+new file mode 100644
+--- /dev/null	(date 1709632400093)
++++ b/../Front-api/.idea/checkstyle-idea.xml	(date 1709632400093)
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CheckStyle-IDEA" serialisationVersion="2">
++    <checkstyleVersion>10.13.0</checkstyleVersion>
++    <scanScope>JavaOnly</scanScope>
++    <copyLibs>true</copyLibs>
++    <option name="thirdPartyClasspath" />
++    <option name="activeLocationIds" />
++    <option name="locations">
++      <list>
++        <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
++        <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
++      </list>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../Front-api/.idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/.idea/modules.xml b/../Front-api/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1709632400075)
++++ b/../Front-api/.idea/modules.xml	(date 1709632400075)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/Front-api.iml" filepath="$PROJECT_DIR$/.idea/Front-api.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../Front-api/Front/src/components/Evenements.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div>\r\n    <h2>Événements à venir</h2>\r\n    <ul>\r\n      <li v-for=\"evenement in evenements\" :key=\"evenement.id\">\r\n        <h3>{{ evenement.nom }}</h3>\r\n        <p>Date: {{ evenement.date }} - Heure: {{ evenement.heure }}</p>\r\n        <p>Lieu: {{ evenement.lieu }} - Capacité: {{ evenement.capacite }}</p>\r\n        <p>Participants: {{ evenement.participants }}/{{ evenement.capacite }}</p>\r\n        <ul>\r\n          <template v-if=\"Object.keys(commentaires[evenement.id].data).length === 0\">\r\n            <h3>Aucun commentaire pour cet événement</h3>\r\n          </template>\r\n          <template v-else>\r\n            <h3>Commentaires</h3>\r\n            <template v-for=\"event in events[lieu.id].data\" :key=\"event.id\">\r\n              <EvenementCard :id=\"event.id\" :nom=\"event.auteurId\"\r\n                               :evenement=\"event.evenementId\"\r\n                               :texte=\"event.texte\" :date=\"event.date\"/>\r\n            </template>\r\n          </template>\r\n        </ul>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</template>\r\n\r\n<script setup>\r\nimport {onMounted, ref} from 'vue'\r\nimport CommentaireService from \"@/services/CommentaireService.js\";\r\nimport CommentaireCard from \"@/components/CommentaireCard.vue\";\r\nimport Evenement from \"@/pages/Evenement.vue\";\r\n\r\nlet commentaires = ref([]);\r\nlet evenements = ref([]);\r\n\r\nonMounted(async () => {\r\n  evenements.value = [\r\n    {\r\n      id: 1,\r\n      nom: 'Événement 1',\r\n      date: '2024-03-01',\r\n      heure: '18:00',\r\n      lieu: 'Salle A',\r\n      capacite: 50,\r\n      capaciteMax: 100,\r\n      participants: 35\r\n    },\r\n    {\r\n      id: 2,\r\n      nom: 'Événement 2',\r\n      date: '2024-03-15',\r\n      heure: '16:00',\r\n      lieu: 'Salle B',\r\n      capacite: 30,\r\n      capaciteMax: 50,\r\n      participants: 20\r\n    },\r\n    {\r\n      id: 3,\r\n      nom: 'Événement 3',\r\n      date: '2024-04-05',\r\n      heure: '19:30',\r\n      lieu: 'Salle C',\r\n      capacite: 40,\r\n      capaciteMax: 60,\r\n      participants: 10\r\n    }\r\n  ];\r\n\r\n  for (let evenement of evenements.value) {\r\n    commentaires.value[evenement.id] = await CommentaireService.getCommentaireByEvenementId(evenement.id);\r\n  }\r\n});\r\n\r\n</script>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/Front/src/components/Evenements.vue b/../Front-api/Front/src/components/Evenements.vue
+--- a/../Front-api/Front/src/components/Evenements.vue	(revision 7ebbd3ea574e9aba5210182656ab76866aaa92b6)
++++ b/../Front-api/Front/src/components/Evenements.vue	(date 1709679843709)
+@@ -14,7 +14,7 @@
+           <template v-else>
+             <h3>Commentaires</h3>
+             <template v-for="event in events[lieu.id].data" :key="event.id">
+-              <EvenementCard :id="event.id" :nom="event.auteurId"
++              <CommentaireCard :id="event.id" :nom="event.auteurId"
+                                :evenement="event.evenementId"
+                                :texte="event.texte" :date="event.date"/>
+             </template>
+Index: ../Front-api/Front/src/components/EvenementList.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><script setup>\r\nimport {ref, onMounted} from 'vue';\r\nimport EvenementService from '../services/EvenementService.js';\r\n\r\nconst events = ref([]);\r\n\r\nonMounted(async () => {\r\n  try {\r\n    const response = await EvenementService.getAllEvent()();\r\n    events.value = response.data;\r\n  } catch (error) {\r\n    console.error(error);\r\n  }\r\n});\r\n\r\nimport {useRoute} from 'vue-router';\r\nimport MessageSucces from \"@/components/MessageSucces.vue\";\r\nimport Evenement from \"@/pages/Evenement.vue\";\r\n\r\nlet message = \"\";\r\nconst route = useRoute();\r\n\r\nif (route.query.message) {\r\n  message = route.query.message;\r\n}\r\nconsole.log(message);\r\n\r\n</script>\r\n\r\n<template>\r\n  <div>\r\n    <h2>Liste des Evenement</h2>\r\n    <ul>\r\n      <template v-for=\"event in events\" :key=\"commentaire.id\">\r\n        <EvenementCard :id=\"event.id\" :auteur=\"event.nom\" :evenement=\"commentaire.evenementId\"\r\n                         :texte=\"commentaire.texte\" :date=\"commentaire.date\"/>\r\n      </template>\r\n    </ul>\r\n  </div>\r\n</template>\r\n\r\n<style scoped>\r\n\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/Front/src/components/EvenementList.vue b/../Front-api/Front/src/components/EvenementList.vue
+--- a/../Front-api/Front/src/components/EvenementList.vue	(revision 7ebbd3ea574e9aba5210182656ab76866aaa92b6)
++++ b/../Front-api/Front/src/components/EvenementList.vue	(date 1709723196568)
+@@ -1,12 +1,13 @@
+ <script setup>
+ import {ref, onMounted} from 'vue';
+ import EvenementService from '../services/EvenementService.js';
++import EvenementCard from "@/components/EvenementCard.vue";
+ 
+ const events = ref([]);
+ 
+ onMounted(async () => {
+   try {
+-    const response = await EvenementService.getAllEvent()();
++    const response = await EvenementService.getAllEvent();
+     events.value = response.data;
+   } catch (error) {
+     console.error(error);
+@@ -29,11 +30,11 @@
+ 
+ <template>
+   <div>
+-    <h2>Liste des Evenement</h2>
++    <h2>Liste des Evenements</h2>
+     <ul>
+-      <template v-for="event in events" :key="commentaire.id">
+-        <EvenementCard :id="event.id" :auteur="event.nom" :evenement="commentaire.evenementId"
+-                         :texte="commentaire.texte" :date="commentaire.date"/>
++      <template v-for="event in events" :key="event.id">
++        <EvenementCard :id="event.id" :nom="event.nom" :dateHeureDebut="event.dateHeureDebut" :dateHeureFin="event.dateHeureFin"
++                       :maxParticipants="event.maxParticipants" :lieuId="event.lieuId"/>
+       </template>
+     </ul>
+   </div>
+Index: ../Front-api/Front/src/components/EvenementCard.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"card border-primary mb-3\" style=\"max-width: 20rem;\">\r\n    <div class=\"card-header\">{{id}}</div>\r\n    <div class=\"card-body\">\r\n      <p class=\"card-text\">{{ nom }}</p>\r\n    </div>\r\n    <p class=\"text-body-tertiary\">{{ formatDate(date) }}</p>\r\n    <router-link :to=\"'/evenement/' + id\" class=\"btn btn-info\">Éditer</router-link>\r\n  </div>\r\n</template>\r\n\r\n<script setup>\r\nimport {formatDate} from '@/util/dateUtil.js';\r\n\r\nconst props = defineProps(['id', 'nom', 'dateHeureDebut', 'dateHeureFin', 'maxParticipants', 'lieuId']);\r\n\r\n</script>\r\n\r\n<style scoped>\r\n/* Styles spécifiques au composant */\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/Front/src/components/EvenementCard.vue b/../Front-api/Front/src/components/EvenementCard.vue
+--- a/../Front-api/Front/src/components/EvenementCard.vue	(revision 7ebbd3ea574e9aba5210182656ab76866aaa92b6)
++++ b/../Front-api/Front/src/components/EvenementCard.vue	(date 1709723642654)
+@@ -4,8 +4,9 @@
+     <div class="card-body">
+       <p class="card-text">{{ nom }}</p>
+     </div>
+-    <p class="text-body-tertiary">{{ formatDate(date) }}</p>
+-    <router-link :to="'/evenement/' + id" class="btn btn-info">Éditer</router-link>
++    <p class="text-body-tertiary">{{ formatDate(dateHeureDebut) }}</p>
++    <p class="text-body-tertiary">{{ formatDate(dateHeureFin) }}</p>
++    <router-link :to="'/evenement/getEvenement/' + id" class="btn btn-info">Éditer</router-link>
+   </div>
+ </template>
+ 
+Index: ../Front-api/Front/src/pages/Evenement.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><script setup>\r\n\r\nimport Evenements from \"@/components/Evenements.vue\";\r\nimport LieuList from \"@/components/LieuList.vue\";\r\n</script>\r\n\r\n<template>\r\n  <Evenements/>\r\n  <LieuList/>\r\n</template>\r\n\r\n<style scoped>\r\n\r\n</style>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Front-api/Front/src/pages/Evenement.vue b/../Front-api/Front/src/pages/Evenement.vue
+--- a/../Front-api/Front/src/pages/Evenement.vue	(revision 7ebbd3ea574e9aba5210182656ab76866aaa92b6)
++++ b/../Front-api/Front/src/pages/Evenement.vue	(date 1709720011781)
+@@ -1,14 +1,13 @@
+ <script setup>
+ 
+ import Evenements from "@/components/Evenements.vue";
+-import LieuList from "@/components/LieuList.vue";
++import EvenementList from "@/components/EvenementList.vue";
+ </script>
+ 
+ <template>
+-  <Evenements/>
+-  <LieuList/>
++  <EvenementList/>
+ </template>
+ 
+ <style scoped>
+ 
+-</style>
+\ No newline at end of file
++</style>
