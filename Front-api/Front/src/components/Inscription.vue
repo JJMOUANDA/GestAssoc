@@ -20,8 +20,8 @@ onMounted(async () => {
 });
 
 const register = () => {
-  // Registration logic goes here
 };
+
 </script>
 
 <template>
