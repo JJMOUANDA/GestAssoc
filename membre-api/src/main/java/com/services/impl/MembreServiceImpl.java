@@ -5,7 +5,6 @@ import com.entities.Membre;
 import com.repositories.MembreRepository;
 import com.services.MembreService;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -15,11 +14,9 @@ import java.util.List;
 public class MembreServiceImpl implements MembreService {
 
 	private final MembreRepository membreRepository;
-  private final BCryptPasswordEncoder passwordEncoder;
 
-    public MembreServiceImpl(MembreRepository membreRepository, BCryptPasswordEncoder passwordEncoder){
+    public MembreServiceImpl(MembreRepository membreRepository){
         this.membreRepository = membreRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -80,8 +77,7 @@ public class MembreServiceImpl implements MembreService {
         membre.setDateNaissance(membreDto.getDateNaissance());
         membre.setAdresse(membreDto.getAdresse());
         membre.setMail(membreDto.getMail());
-        String hashedPassword = passwordEncoder.encode(membreDto.getMotDePasse());
-        membre.setMotDePasse(hashedPassword);
+        membre.setMotDePasse(membreDto.getMotDePasse());
         return membre;
     }
 }

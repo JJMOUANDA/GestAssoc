@@ -11,11 +11,11 @@ public class Inscription {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "evenementId")
+    @JoinColumn(name = "evenement_id")
     private Evenement evenement;
 
     @ManyToOne
-    @JoinColumn(name = "MembreId")
+    @JoinColumn(name = "membre_id")
     private Membre membre;
 
     public Inscription() {

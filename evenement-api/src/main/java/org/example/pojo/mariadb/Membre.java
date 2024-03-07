@@ -16,12 +16,14 @@ public class Membre {
 
     private String prenom;
 
+    @Column(name = "date_naissance")
     private Date dateNaissance;
 
     private String adresse;
 
     private String mail;
 
+    @Column(name = "mot_de_passe")
     private String motDePasse;
 
     public Membre() {

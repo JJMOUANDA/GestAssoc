@@ -4,8 +4,14 @@ import Commentaire from "@/pages/Commentaire.vue";
 import ModificationCommentaire from "@/pages/ModificationCommentaire.vue";
 import Membres from "@/pages/Membre.vue";
 import AjouterLieu from "@/components/AjouterLieu.vue";
+import AjouterEvenement from "@/components/EvenementAdd.vue";
 
 const routes = [
+    {
+        path: "/ajouterEvenement",
+        name: "AjouterEvenement",
+        component: AjouterEvenement
+    },
     {
         path: "/",
         name: "Evenement",
