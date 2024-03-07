@@ -1,7 +1,8 @@
 <script setup>
 import CommentaireService from '../services/CommentaireService.js';
 import router from "@/router/index.js";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import MembreService from "@/services/MembreService.js";
 
 let idEvenement = '';
 let idAuteur = '';
@@ -21,6 +22,18 @@ const handleSubmit = async (event) => {
     console.error(error);
   }
 };
+
+let membres = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await MembreService.getAllMembres();
+    membres.value = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 </script>
 
 <template>
@@ -38,13 +51,12 @@ const handleSubmit = async (event) => {
         </select>
       </div>
       <div class="form-group">
-        <label for="exampleSelect1" class="form-label mt-4">Auteur</label>
+        <label for="selectAuteur" class="form-label mt-4">Auteur</label>
         <select v-model="idAuteur" class="form-select" id="selectAuteur">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+          <option v-for="membre in membres" :key="membre.id" :value="membre.id">{{ membre.prenom }} {{
+              membre.nom
+            }}
+          </option>
         </select>
       </div>
       <div class="form-group">

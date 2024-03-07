@@ -10,10 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="756b058e-bfb2-43f4-b9be-672a36edab39" name="Changes" comment="fix: close emf">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/b95afffa-800f-47cb-95e5-a42a43a6163c.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/b95afffa-800f-47cb-95e5-a42a43a6163c/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-api/Front/src/components/CommentaireCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-api/Front/src/components/CommentaireCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-api/Front/src/components/FormulaireCommentaire.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-api/Front/src/components/FormulaireCommentaire.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Tomcat_10_0_27.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Tomcat_10_1_18.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lieu-api/Lieu-API/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../lieu-api/Lieu-API/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../membre-api/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../membre-api/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
