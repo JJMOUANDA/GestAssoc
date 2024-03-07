@@ -10,10 +10,10 @@
 </template>
 
 <script setup>
-import { formatDate } from '@/util/dateUtil.js';
+import {formatDate} from '@/util/dateUtil.js';
 import MembreService from '../services/MembreService.js';
 import EvenementService from '../services/EvenementService.js';
-import { defineProps, onMounted, ref } from 'vue';
+import {defineProps, onMounted, ref} from 'vue';
 
 const props = defineProps(['id', 'auteur', 'evenement', 'texte', 'date']);
 let auteur = ref({});

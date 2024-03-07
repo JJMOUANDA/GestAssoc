@@ -9,7 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="807d56fd-dacc-4630-b5a6-a47b30034f5d" name="Changes" comment="Chore : AJout run configuration" />
+    <list default="true" id="807d56fd-dacc-4630-b5a6-a47b30034f5d" name="Changes" comment="fix: close emf">
+      <change beforePath="$PROJECT_DIR$/../Front-api/Front/src/components/CommentaireCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-api/Front/src/components/CommentaireCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-api/Front/src/components/CommentaireEdit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-api/Front/src/components/CommentaireEdit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-api/Front/src/components/Inscription.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-api/Front/src/components/Inscription.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lieu-api/Lieu-API/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../lieu-api/Lieu-API/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +25,9 @@
     <option name="groupingKeys">
       <option value="directory" />
     </option>
+  </component>
+  <component name="ComposerSettings">
+    <execution />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -106,7 +115,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 10.0.27">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.18">
     <configuration name="TestJPA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TestJPA" />
       <module name="evenement-api" />
@@ -213,6 +222,18 @@
         </option>
       </method>
     </configuration>
+    <configuration default="true" type="TomeeConfiguration" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings />
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Tomcat 10.0.27" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.0.27" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -304,6 +325,7 @@
     <list>
       <item itemvalue="Application.TestJPA" />
       <item itemvalue="JUnit.All in evenement-api" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.18" />
       <item itemvalue="Tomcat Server.Tomcat 10.0.27" />
       <item itemvalue="TomEE Server.TomEE 9.1.2" />
     </list>
@@ -432,6 +454,7 @@
     <MESSAGE value="Fix : AMelioration fonctionnement Servlet" />
     <MESSAGE value="Feature : Ajout d'un filtre pour front distant" />
     <MESSAGE value="Chore : AJout run configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chore : AJout run configuration" />
+    <MESSAGE value="fix: close emf" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: close emf" />
   </component>
 </project>

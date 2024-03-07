@@ -1,18 +1,20 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center flex-column">
-    <div>
-      <h4>Par {{ auteur.prenom }} {{ auteur.nom }} pour l'événement {{ evenement.nom }}</h4>
-      <label for="exampleTextarea" class="form-label mt-4"></label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"
-                v-model="nouveauTexte"></textarea>
-    </div>
-    <div class="d-flex justify-content-between mt-3">
-      <button type="button" class="btn btn-danger me-2" @click="deleteComment">Supprimer</button>
-      <button type="button"
-              :class="isDisabled ? 'btn btn-secondary disabled' : 'btn btn-success'"
-              :disabled="isDisabled"
-              @click="editComment">Modifier
-      </button>
+  <div class="container-sm m-4">
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <div>
+        <h4>Par {{ auteur.prenom }} {{ auteur.nom }} pour l'événement {{ evenement.nom }}</h4>
+        <label for="exampleTextarea" class="form-label mt-4"></label>
+        <textarea class="form-control" id="exampleTextarea" rows="3"
+                  v-model="nouveauTexte"></textarea>
+      </div>
+      <div class="d-flex justify-content-between mt-3">
+        <button type="button" class="btn btn-danger me-2" @click="deleteComment">Supprimer</button>
+        <button type="button"
+                :class="isDisabled ? 'btn btn-secondary disabled' : 'btn btn-success'"
+                :disabled="isDisabled"
+                @click="editComment">Modifier
+        </button>
+      </div>
     </div>
   </div>
 </template>

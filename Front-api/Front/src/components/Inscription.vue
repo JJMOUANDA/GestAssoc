@@ -25,25 +25,27 @@ const register = () => {
 </script>
 
 <template>
-  <form @submit.prevent="register">
-    <div class="form-group">
-      <label for="selectEvenement" class="form-label mt-4">Membre</label>
-      <select class="form-select" v-model="selectedMembre">
-        <option disabled value="">Choisir un membre</option>
-        <option v-for="membre in membres" :key="membre.id" :value="membre.id">
-          {{ membre.nom }}
-        </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="selectEvenement" class="form-label mt-4">Événement</label>
-      <select class="form-select" v-model="selectedEvent">
-        <option disabled value="">Choisir un événement </option>
-        <option v-for="event in events" :key="event.id" :value="event.id">
-          {{ event.nom }}
-        </option>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-success">Inscription</button>
-  </form>
+  <div class="container-sm m-4">
+    <form @submit.prevent="register">
+      <div class="form-group">
+        <label for="selectEvenement" class="form-label mt-4">Membre</label>
+        <select class="form-select" v-model="selectedMembre">
+          <option disabled value="">Choisir un membre</option>
+          <option v-for="membre in membres" :key="membre.id" :value="membre.id">
+            {{membre.prenom}} {{ membre.nom }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="selectEvenement" class="form-label mt-4">Événement</label>
+        <select class="form-select" v-model="selectedEvent">
+          <option disabled value="">Choisir un événement</option>
+          <option v-for="event in events" :key="event.id" :value="event.id">
+            {{ event.nom }}
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success mt-4">Inscription</button>
+    </form>
+  </div>
 </template>
