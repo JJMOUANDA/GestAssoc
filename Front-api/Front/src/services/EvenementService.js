@@ -8,7 +8,7 @@ class EvenementService {
     }
 
     getEventById(id) {
-        return axios.get(`${API_URL}/${id}`);
+        return axios.get(`${API_URL}/getEvenement/${id}`);
     }
 
     createEvent(event) {
