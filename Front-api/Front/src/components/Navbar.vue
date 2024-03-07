@@ -20,7 +20,9 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/ajouterLieu">Ajouter Lieu</router-link>
           </li>
-
+          <li class="nav-item">
+            <router-link class="nav-link" to="/inscription">Inscription</router-link>
+          </li>
         </ul>
       </div>
     </div>

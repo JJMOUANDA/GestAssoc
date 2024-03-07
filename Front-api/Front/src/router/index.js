@@ -5,6 +5,7 @@ import ModificationCommentaire from "@/pages/ModificationCommentaire.vue";
 import Membres from "@/pages/Membre.vue";
 import AjouterLieu from "@/components/AjouterLieu.vue";
 import AjouterEvenement from "@/components/EvenementAdd.vue";
+import Inscription from "@/components/Inscription.vue";
 
 const routes = [
     {
@@ -38,6 +39,11 @@ const routes = [
         path: "/membres",
         name: "Membres",
         component: Membres
+    },
+    {
+        path: "/inscription",
+        name: "Inscription",
+        component: Inscription
     }
 ];
 
