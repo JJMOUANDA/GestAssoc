@@ -3,6 +3,8 @@ import {ref, onMounted, nextTick} from 'vue';
 import LieuService from '../services/LieuService.js';
 import L from 'leaflet';
 
+import EvenementService from '../services/EvenementService.js';
+import {formatDate} from '@/util/dateUtil.js';
 import 'leaflet/dist/leaflet.css';
 
 const lieux = ref([]);
@@ -16,7 +18,8 @@ const lieuForm = ref({
 const lieuIdEnEdition = ref(null);
 const lieuEnEdition = ref({});
 
-
+const evenements = ref([]);
+const evenenementsLieu = ref([]);
 
 onMounted(async () => {
   try {
@@ -66,9 +69,18 @@ function initMap(lieu, coords) {
 async function supprimerLieu(idLieu) {
   console.log(`Tentative de suppression du lieu avec l'ID : ${idLieu}`);
   try {
-    const response = await LieuService.deleteLieu(idLieu);
-    console.log('Réponse de la suppression :', response);
+
+    // recupere touts les evenements
+    const evenements = await EvenementService.getAllEvent();
+    // recupere les evenements qui ont le lieu a supprimer
+    const evenementsLieu = evenements.data.filter(evenement => evenement.lieu.id === idLieu);
+    // supprime les evenements qui ont le lieu a supprimer
+    for (const evenement of evenementsLieu) {
+      await EvenementService.deleteEvent(evenement.id);
+    }
     /*TODO : Supprimer l'évenement lié au lieu à supprimer. */
+    const response = await LieuService.deleteLieu(idLieu);
+
     lieux.value = lieux.value.filter(lieu => lieu.id !== idLieu);
   } catch (error) {
     console.error("Erreur lors de la suppression du lieu :", error);
