@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8081/message-api/commentaire';
+const API_URL = 'http://localhost:8012/message/commentaire';
 
 class CommentaireService {
 

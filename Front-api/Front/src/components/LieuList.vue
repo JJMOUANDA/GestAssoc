@@ -7,6 +7,17 @@ import 'leaflet/dist/leaflet.css';
 
 const lieux = ref([]);
 
+const lieuForm = ref({
+  nom: '',
+  adresse: '',
+  capacite_accueil: ''
+});
+
+const lieuIdEnEdition = ref(null);
+const lieuEnEdition = ref({});
+
+
+
 onMounted(async () => {
   try {
     const response = await LieuService.getAllLieux(); // Récupération des lieux depuis le service
@@ -51,6 +62,46 @@ function initMap(lieu, coords) {
       .bindPopup(`${lieu.nom}`)
       .openPopup(); // Ajout d'un marqueur à la carte avec le nom du lieu
 }
+
+async function supprimerLieu(idLieu) {
+  console.log(`Tentative de suppression du lieu avec l'ID : ${idLieu}`);
+  try {
+    const response = await LieuService.deleteLieu(idLieu);
+    console.log('Réponse de la suppression :', response);
+    /*TODO : Supprimer l'évenement lié au lieu à supprimer. */
+    lieux.value = lieux.value.filter(lieu => lieu.id !== idLieu);
+  } catch (error) {
+    console.error("Erreur lors de la suppression du lieu :", error);
+  }
+}
+
+
+
+
+const commencerEdition = (lieu) => {
+  lieuIdEnEdition.value = lieu.id;
+  lieuEnEdition.value = { ...lieu }; // Crée une copie superficielle pour l'édition
+};
+
+const annulerEdition = () => {
+  lieuIdEnEdition.value = null;
+};
+
+const modifierLieu = async (id) => {
+  try {
+    await LieuService.updateLieu(id, lieuEnEdition.value);
+    // Met à jour l'état local si la modification a réussi
+    const index = lieux.value.findIndex(lieu => lieu.id === id);
+    if (index !== -1) {
+      lieux.value[index] = { ...lieux.value[index], ...lieuEnEdition.value };
+    }
+    lieuIdEnEdition.value = null; // Termine l'édition
+    alert('Lieu.java modifié avec succès');
+  } catch (error) {
+    console.error("Erreur lors de la modification du lieu :", error);
+  }
+};
+
 </script>
 
 <template>
@@ -58,12 +109,34 @@ function initMap(lieu, coords) {
     <h2>Liste des Lieux</h2>
     <ul>
       <li v-for="lieu in lieux" :key="lieu.id">
-        {{ lieu.nom }} - {{ lieu.adresse }} - {{ lieu.capacite_accueil}}
-        <div :id="`map-${lieu.id}`" class="map-container"></div> <!-- Ajout d'un conteneur pour chaque carte qui correspond à un lieu -->
+        <transition name="expand">
 
+        <div v-if="lieuIdEnEdition === lieu.id">
+          <!-- Formulaire de modification pour le lieu actuel -->
+          <form @submit.prevent="modifierLieu(lieu.id)">
+            <input v-model="lieuEnEdition.nom" type="text" placeholder="Nom">
+            <input v-model="lieuEnEdition.adresse" type="text" placeholder="Adresse">
+            <input v-model.number="lieuEnEdition.capacite_accueil" type="number" placeholder="Capacité d'accueil">
+            <button type="submit">Enregistrer</button>
+            <button @click="annulerEdition">Annuler</button>
+          </form>
+        </div>
+
+        <div v-else>
+          <!-- Affichage du lieu -->
+          {{ lieu.nom }} - {{ lieu.adresse }} - {{ lieu.capacite_accueil }}
+
+        </div>
+        </transition>
+        <div :id="`map-${lieu.id}`" class="map-container"></div>
+        <button @click="supprimerLieu(lieu.id)">Supprimer</button>
+        <button @click="commencerEdition(lieu)">Modifier</button>
       </li>
     </ul>
   </div>
+
+
+
 </template>
 
 <style>
@@ -80,6 +153,13 @@ function initMap(lieu, coords) {
   height: 400px; /* Hauteur du conteneur de la carte */
   width: 100%; /* Largeur du conteneur (peut être ajustée selon vos besoins) */
   margin-top: 20px; /* Marge au-dessus de la carte, ajustable selon votre mise en page */
+}
+.expand-enter-active, .expand-leave-active {
+  transition: all 0.3s ease;
+}
+.expand-enter, .expand-leave-to /* .expand-leave-active in <2.1.8 */ {
+  transform: scaleY(0);
+  opacity: 0;
 }
 
 
