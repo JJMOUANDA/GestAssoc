@@ -92,7 +92,8 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
     }
 
     public Boolean addEvent(Evenement evenement) {
-        try (EntityManager em = emf.createEntityManager()) {
+        EntityManager em = emf.createEntityManager();
+        try {
             em.getTransaction().begin();
             if (evenement.getId() != null) { // Vérifier si l'ID est défini
                 em.merge(evenement); // Utiliser merge pour une entité existante
@@ -105,7 +106,7 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
             e.printStackTrace();
             return false;
         } finally {
-            emf.close();
+            em.close();
         }
     }
 
@@ -120,7 +121,6 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
                 evenementToUpdate.setId(id);
                 if (updateEvent(evenementToUpdate)) {
                     resp.setStatus(HttpServletResponse.SC_OK);
-                    resp.getWriter().write("Événement mis à jour");
                 } else {
                     resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors de la mise à jour");
                 }
@@ -134,7 +134,6 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
 
     public boolean updateEvent(Evenement evenementToUpdate) {
         EntityManager em = emf.createEntityManager();
-
         try {
             em.getTransaction().begin();
             Evenement evenementExisting = em.find(Evenement.class, evenementToUpdate.getId());
@@ -158,7 +157,7 @@ public class EvenementServlet extends jakarta.servlet.http.HttpServlet {
             e.printStackTrace();
             return false;
         } finally {
-            emf.close();
+            em.close();
         }
     }
 

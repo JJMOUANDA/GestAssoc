@@ -1,13 +1,10 @@
 <script setup>
 
-import Evenements from "@/components/Evenements.vue";
-import LieuList from "@/components/LieuList.vue";
-import MembreList from "@/components/MembreList.vue";
+import EvenementList from "@/components/EvenementList.vue";
 </script>
 
 <template>
-  <Evenements/>
-  <LieuList/>
+  <EvenementList/>
 </template>
 
 <style scoped>
